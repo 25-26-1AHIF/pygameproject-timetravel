@@ -6,12 +6,29 @@
 
 ## Spielidee:
 ### Grundidee:
-Die Idee für das spiel ist folgende: Ein Junge findet im Dachboden seines Opas ein altes Tagebuch. Als er durch dieses Tagebuch blättert, begibt er sich auf
-Zeitreisen in verschiedenste Zeiten, wo er diverse Feinde bekämpfen muss, um in die nächste Epoche einzutreten und dem Entkommen aus der Zeitreise-Schleife
-einen Schritt näher zu kommen. Als Waffe soll er je nach Epoche, entweder Schwerter oder Pistolen kriegen. Eine Lebensanzeige zeigt an, bei wie viel der Stand des Lebens ist. Dazu gibt es noch eine Schildanzeige, bis diese komplett leer ist, der Player keinen Schaden bekommt.
+Ein Junge findet im Dachboden seines Opas ein altes Tagebuch. Beim Durchblättern wird er in verschiedene Epochen teleportiert. Um aus jeder Epoche zu entkommen, muss er zeitbasierte Rätsel lösen, die mit der Kultur, Technik oder Mythologie der jeweiligen Zeit zusammenhängen.
+Jedes gelöste Rätsel schaltet eine neue Tagebuchseite frei — und damit die nächste Zeitreise.
+
+- Logikrätsel
+- Kombinationsrätsel
+- Interaktive Objekte (Hebel, Symbole, versteckte Hinweise)
 
 ### Story im Groben:
-Der Opa des Jungen hat ein Geheimnis von dem niemand weiß. Er ist ein Zeitreisender. Mit einem Tagebuch, dessen Seiten mysteriös geschrieben sind, reist er in alte Zeiten zurück. Dieses Geheimnis war gut gewahrt, bis der Enkel des Opas eines Tages auf den Dachboden klettert, um dort dem Lärm des Familientreffens zu entkommen. Dort stoßt er auf ein altes Tagebuch und kann nicht wiederstehen durchzublättern. Er sieht komisch aussehende Zeilen und Berührt diese. Als er das macht, wird er auf einmal zu einem ihm unbekannten Ort teleportiert. Er bemerkt sehr schnell, dass er in der Zeit zurück gereist ist. Er kämoft sich durch dieses Level,
+Der Opa des Jungen war ein Zeitreisender, der seine Reisen in einem geheimnisvollen Tagebuch dokumentiert hat. Jede Seite enthält kryptische Symbole, Zeichnungen und Hinweise.
+Als der Junge das Tagebuch berührt, wird er in eine vergangene Epoche gezogen.
+
+Dort merkt er schnell:
+Der Opa hat überall Rätsel hinterlassen, die nur jemand lösen kann, der das Tagebuch besitzt. Diese Rätsel dienen als „Schlüssel“, um die Zeitreise weiterzuführen.
+
+Der Junge muss:
+- Hinweise im Level finden
+- Symbole im Tagebuch entschlüsseln
+- Mechanismen aktivieren
+- Zeitmanipulationen anwenden
+- Logische Zusammenhänge erkennen
+
+Erst wenn das Rätsel der Epoche gelöst ist, öffnet sich ein Zeitportal zur nächsten Zeitperiode.
+Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die Zeitschleife endgültig verlassen kann.
 
 
 ## Steuerung:
