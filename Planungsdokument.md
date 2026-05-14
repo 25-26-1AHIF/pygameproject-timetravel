@@ -45,20 +45,26 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 - - Steuerung unten genauer beschrieben
 - Speichern
 - Laden
+- Also funktionierende Serialisierung
+- - Level
+  - Fortschritt
+- ordentliche und übersichtliche Ordnerstruktur
 - ein Level Designs (eins zum start)
+- Anklickbare Schlagwörter/Bereiche im Tagebuch, um die Zeitreise auszuführen
 - 1 Zeitreise (mit einer starten)
 - Animationen
 
 
 
 ## Nice-To-Haves:
-- umfangreiche Story
+- Story
 - ELitäre Grafik und Sound
-- keine Bugs
 - Flüssiges Spiel
+- - dazu zählen u.a. so wenig Bugs oder Abstürze wie möglich
 - Easter Eggs/Detaills
 - schönes Level Design
-- spannendes Gameplay
+- tolles Gameplay
+- freigeschalteten Orte und Spielerposition in die Serialisierung einbauen
 
 
 ## Arbeitsaufteilung:
@@ -66,6 +72,15 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 |:---|---:|
 |Planungsdokument|Skizzen|
 |Git repository|Sound & Grafik|
-|Dokumentation 1/2|Dokumentation 2/2|
-
+|Projektordner anlegen|Projektordner anlegen|
+|Schauplätze|Tagebuch-Logik und Zeitreisesystem|
+|Lizenzen eintragen|Lizenzen eintragen|
+|Projekttagebuch führen|Projekttagebuch führen|
+|Dokumentation erweitern|Dokumentation erweitern|
+|Stolpersteine & Lösungen dokumentieren|Stolpersteine & Lösungen dokumentieren|
+|Softwarevoraussetzungen und Versionen|Bedienungsanleitung|
+|Architektur & Funktionsblöcke|Umsetzungsbeschreibung|
+|als Dokumentation als PDF und Projekt als .zip exportiert|Probleme & Lösungen (Pflichtenheft)|
+|KI-Codes dokumentiert|KI-Codes dokumentiert|
+|Power Point erstellen|Power Point erstellen|
 (genauer ausarbeiten)
