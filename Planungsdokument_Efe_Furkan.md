@@ -107,3 +107,8 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 |Rätsel-Logik programmieren|Zeitreise-Logik programmieren|
 |Bewegung programmieren|Zeitreiseort 2 programmieren|
 |Rätsel programmieren|Story-Einschübe programmieren|
+
+
+## Checkliste-Screenshot:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bb7598d0-5202-45b6-b40c-d10130eb73e2" />
+
