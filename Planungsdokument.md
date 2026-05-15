@@ -46,7 +46,7 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 - Speichern
 - Laden
 - Also funktionierende Serialisierung
-- - Level
+  - Level
   - Fortschritt
 - ordentliche und übersichtliche Ordnerstruktur
 - ein Level Designs (eins zum start)
@@ -60,7 +60,7 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 - Story
 - ELitäre Grafik und Sound
 - Flüssiges Spiel
-- - dazu zählen u.a. so wenig Bugs oder Abstürze wie möglich
+  - dazu zählen u.a. so wenig Bugs oder Abstürze wie möglich
 - Easter Eggs/Detaills
 - schönes Level Design
 - tolles Gameplay
