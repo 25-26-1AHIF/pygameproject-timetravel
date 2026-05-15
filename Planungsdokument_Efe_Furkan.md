@@ -109,6 +109,12 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 |Rätsel programmieren|Story-Einschübe programmieren|
 
 
-## Checkliste-Screenshot:
+## Bilder:
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bb7598d0-5202-45b6-b40c-d10130eb73e2" />
+Screenshot Checkliste
 
+<img width="1351" height="1802" alt="Image (1)" src="https://github.com/user-attachments/assets/dbc36eba-3e8c-4e52-9372-72eff5761340" />
+Skizze
+
+<img width="1534" height="2045" alt="Image" src="https://github.com/user-attachments/assets/d3135e46-0f2b-4830-97b4-16cd8ad6367e" />
+Skizze Startmenü
