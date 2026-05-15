@@ -12,7 +12,6 @@ Jedes gelöste Rätsel schaltet eine neue Tagebuchseite frei — und damit die n
 - Logikrätsel
 - Kombinationsrätsel
 - Interaktive Objekte (Hebel, Symbole, versteckte Hinweise)
-- 
 
 ### Story im Groben:
 Der Opa des Jungen war ein Zeitreisender, der seine Reisen in einem geheimnisvollen Tagebuch dokumentiert hat. Jede Seite enthält kryptische Symbole, Zeichnungen und Hinweise.
