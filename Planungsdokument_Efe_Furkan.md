@@ -13,6 +13,26 @@ Jedes gelöste Rätsel schaltet eine neue Tagebuchseite frei — und damit die n
 - Kombinationsrätsel
 - Interaktive Objekte (Hebel, Symbole, versteckte Hinweise)
 
+Beispiel für ein Rätsel:
+Zeitreise ins Antike Griechenland:
+
+  
+  - Im alten Athen gab es ein Tempel. Wie hieß dieser?
+  - Antwort: Akropolis
+  - 1/3 Fragen gelöst
+    
+ 
+  - Wer war die Göttin der Weisheit?
+  - Antwort: Athene
+  - 2/3 Fragen gelöst
+    
+ 
+  - Rätselfrage: "Am Fuße des Tempels bin ich. Findest du mich, so benutze mich. Wenn du dies tust, dann gewähre ich dir die Weiterreise."
+  - Spieler muss zum Tempel laufen -> dort Schalter umschalten -> Weiterreisen
+  - 3/3 gelöst
+  - Weiterreise
+    
+
 ### Story im Groben:
 Der Opa des Jungen war ein Zeitreisender, der seine Reisen in einem geheimnisvollen Tagebuch dokumentiert hat. Jede Seite enthält kryptische Symbole, Zeichnungen und Hinweise.
 Als der Junge das Tagebuch berührt, wird er in eine vergangene Epoche gezogen.
@@ -40,18 +60,18 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 - Mausklick - Interagieren
 
 
-## Must-Haves: (sollten technischer sein)
+## Must-Haves:
 - Spielbarer Protagonist
-  - Steuerung unten genauer beschrieben
+  - Steuerung oben genauer beschrieben
 - Speichern
 - Laden
 - Also funktionierende Serialisierung
   - Level
   - Fortschritt
 - ordentliche und übersichtliche Ordnerstruktur
-- ein Level Designs (eins zum start)
+- ein Level Design
 - Anklickbare Schlagwörter/Bereiche im Tagebuch, um die Zeitreise auszuführen
-- 1 Zeitreise (mit einer starten)
+- 1 Zeitreise
 - Animationen
 
 
@@ -87,4 +107,3 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 |Rätsel-Logik programmieren|Zeitreise-Logik programmieren|
 |Bewegung programmieren|Zeitreiseort 2 programmieren|
 |Rätsel programmieren|Story-Einschübe programmieren|
-(genauer ausarbeiten)
