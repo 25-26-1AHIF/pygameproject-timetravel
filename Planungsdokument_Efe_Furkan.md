@@ -83,4 +83,8 @@ Am Ende erfährt er, warum sein Opa diese Rätsel gebaut hat — und wie er die 
 |als Dokumentation als PDF und Projekt als .zip exportiert|Probleme & Lösungen (Pflichtenheft)|
 |KI-Codes dokumentiert|KI-Codes dokumentiert|
 |Power Point erstellen|Power Point erstellen|
+|Zeitreiseort 1 programmieren|Startpunkt mit Tagebuch programmiere|
+|Rätsel-Logik programmieren|Zeitreise-Logik programmieren|
+|Bewegung programmieren|Zeitreiseort 2 programmieren|
+|Rätsel programmieren|Story-Einschübe programmieren|
 (genauer ausarbeiten)
