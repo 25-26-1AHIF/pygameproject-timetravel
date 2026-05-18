@@ -1,6 +1,7 @@
 import pygame
 from assets.Game_Variables.game_variables import GameVariables as GV
 from assets.Game_Variables.game_variables import GameScreens
+
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Main")
 
@@ -12,9 +13,12 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
 
     titel_text_rect = titel_text.get_rect(center=(GV.SCREEN_WIDTH/2, 100))
     untertext_rect = untertext.get_rect(center=(GV.SCREEN_WIDTH/2, 150))
-    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH/2, 250))
-    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 300))
-    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 350))
+    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH/2, 350))
+    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 400))
+    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 450))
+
+    main_screen_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png")
+    screen.blit(source=main_screen_bild, dest=(0,0))
 
     running = True
     while running:
