@@ -23,4 +23,5 @@ class GameScreens:
     MAIN = "main"
     PLAY = "play"
     EXIT = "exit"
+    LADEN = "laden"
     actual = MAIN
