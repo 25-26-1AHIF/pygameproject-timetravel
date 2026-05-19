@@ -1,0 +1,4 @@
+# Lizenzen
+## Bilder
+## Audio
+## Sprites
