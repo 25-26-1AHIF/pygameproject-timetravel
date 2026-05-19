@@ -8,4 +8,7 @@
 - Hintergrundbild eingebaut
 - Beenden eingebaut
 
+### 19.05.2026:
+- Play_Screen Funktion in main-Branch "Efe_main" erstellt
+
 ## Furkan Yildiz:
