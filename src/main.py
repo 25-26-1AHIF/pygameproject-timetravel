@@ -49,6 +49,23 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
         pygame.display.flip()
     pygame.quit()
 
+def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
+    pygame.display.set_caption("TimeTravel - Play-Screen")
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+        screen.fill("black")
+
+        pygame.display.flip()
+    pygame.quit()
+
 def main():
     GV.init()
     screen = pygame.display.set_mode((GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
@@ -56,6 +73,8 @@ def main():
     while True:
         if GameScreens.actual == GameScreens.MAIN:
             GameScreens.actual = main_screen(screen=screen, clock=clock)
+        elif GameScreens.actual == GameScreens.PLAY:
+            GameScreens.actual = play_screen(screen=screen, clock=clock)
     pygame.quit()
 
 if __name__ == "__main__":
