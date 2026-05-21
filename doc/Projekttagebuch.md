@@ -17,4 +17,7 @@
   - Ein umblättern Sprite
 - in main.py getestet
 - diary.py und sprites.py in assets/game erstellt
+
+### 21.05.2026:
+- Diary vergrößert mithilfe von KI für die Nutzung beim Interagieren
 ## Furkan Yildiz:
