@@ -1,0 +1,23 @@
+from src.assets.Game_Variables.game_variables import GameVariables as GV
+import pygame
+
+def diary(screen: pygame.Surface):
+    diary_bild = pygame.image.load("assets/Sprites/Diary/Diary.png").convert()
+    diary_bild_breite = diary_bild.get_width()
+    #screen.blit(diary_bild, dest=(GV.SCREEN_WIDTH/2 - diary_bild_breite/2, GV.SCREEN_HEIGHT/2 - diary_bild_breite/2))
+
+    #KI_Anfang;
+    #benutzte KI: Microsoft Copilot
+    # Prompt: Wie kann ich in Pycharm ein Sprite vergrößert darstellen,
+    # ohne dass sich die Pixel des Bildes ändern? Geht das?
+    # Muss ich dafür ein neues Sprite erstellen?
+
+    scale_factor = 6  # z.B. 4x größer
+    width = diary_bild.get_width() * scale_factor
+    height = diary_bild.get_height() * scale_factor
+
+    sprite_big = pygame.transform.scale(diary_bild, (width, height))
+
+    screen.blit(sprite_big, dest=(GV.SCREEN_WIDTH/2 - diary_bild_breite/2, GV.SCREEN_HEIGHT/2 - diary_bild_breite/2))
+
+    # KI-Ende
