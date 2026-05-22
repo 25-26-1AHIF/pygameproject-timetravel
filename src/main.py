@@ -1,8 +1,8 @@
 import pygame
-from assets.Game_Variables.game_variables import GameVariables as GV
-from assets.Game_Variables.game_variables import GameScreens
-from src.assets.game.diary import diary
-from src.assets.game.sprites import Sprite
+from Game_Variables.game_variables import GameVariables as GV
+from Game_Variables.game_variables import GameScreens
+from game.sprites import Tilemap
+
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Main")
@@ -13,14 +13,14 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     laden_text = GV.FONT_BUTTONS.render("Spielstand laden", True, "white")
     beenden_text = GV.FONT_BUTTONS.render("Beenden", True, "white")
 
-    titel_text_rect = titel_text.get_rect(center=(GV.SCREEN_WIDTH/2, 100))
-    untertext_rect = untertext.get_rect(center=(GV.SCREEN_WIDTH/2, 150))
-    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH/2, 350))
-    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 400))
-    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 450))
+    titel_text_rect = titel_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 100))
+    untertext_rect = untertext.get_rect(center=(GV.SCREEN_WIDTH / 2, 150))
+    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 350))
+    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 400))
+    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 450))
 
     main_screen_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png")
-    screen.blit(source=main_screen_bild, dest=(0,0))
+    screen.blit(source=main_screen_bild, dest=(0, 0))
 
     running = True
     while running:
@@ -47,9 +47,9 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
         screen.blit(source=laden_text, dest=laden_text_rect)
         screen.blit(source=beenden_text, dest=beenden_text_rect)
 
-
         pygame.display.flip()
     pygame.quit()
+
 
 def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Play-Screen")
@@ -64,7 +64,6 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
                     running = False
 
         screen.fill("black")
-        diary(screen=screen)
 
         pygame.display.flip()
     pygame.quit()
@@ -73,6 +72,11 @@ def main():
     GV.init()
     screen = pygame.display.set_mode((GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+
+    tilemap = Tilemap("assets/Sprites/Town (medieval)/Tilemap/tilemap_packed.png", image_count=(12, 11),
+                      image_rect=pygame.Rect(0, 0, 16, 16), animation_speed=0)
+    tilemap.load_spritesheet()
+
     while True:
         if GameScreens.actual == GameScreens.MAIN:
             GameScreens.actual = main_screen(screen=screen, clock=clock)
