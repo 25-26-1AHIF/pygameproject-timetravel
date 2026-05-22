@@ -3,6 +3,8 @@ from assets.Game_Variables.game_variables import GameVariables as GV
 from assets.Game_Variables.game_variables import GameScreens
 from src.assets.game.diary import diary
 from src.assets.game.sprites import Sprite
+from src.assets.game.Attic import Attic
+
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Main")
@@ -64,7 +66,7 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
                     running = False
 
         screen.fill("black")
-        diary(screen=screen)
+        Attic(screen=screen)
 
         pygame.display.flip()
     pygame.quit()
@@ -82,5 +84,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    hallo Efe
