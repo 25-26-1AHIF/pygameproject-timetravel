@@ -20,4 +20,9 @@
 
 ### 21.05.2026:
 - Diary vergrößert mithilfe von KI für die Nutzung beim Interagieren
+
+### 22.05.2026:
+- main_screen ausgelagert auf main_screen.py
+- Tilemap - loader gebaut mithilfe von Hr. Bechtold
+- Tagebuch Sprite erstellt mit Ausklappen
 ## Furkan Yildiz:
