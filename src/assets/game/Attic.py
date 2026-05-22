@@ -16,8 +16,16 @@ def Attic(screen: pygame.Surface):
 
     table = pygame.transform.scale_by(table, 5)
 
+    player = pygame.image.load("assets/Sprites/Characters/Male person/Charakter.TopDown.png").convert()
+
+    player = pygame.transform.scale(player, (512, 512))
+
+    player = player.subsurface((56, 40, 65, 120))
+
     screen.blit(attic, (0, 0))
 
     screen.blit(table, (800, 320))
+
+    screen.blit(player, (200, 300))
 
 #Ki_Ende

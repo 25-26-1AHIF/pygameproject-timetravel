@@ -1,8 +1,7 @@
 import pygame
 
 def Attic(screen: pygame.Surface):
-    Attic_bild = pygame.image.load(
-        "assets/Sprites/Indoor/Tilesheets/roguelikeIndoor_transparent.png").convert_alpha()
+    Attic_bild = pygame.image.load("assets/Sprites/Indoor/Tilesheets/roguelikeIndoor_transparent.png").convert_alpha()
 
     Attic_table = Attic_bild.subsurface((101, 152, 18, 35))
 
