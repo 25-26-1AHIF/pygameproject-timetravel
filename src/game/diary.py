@@ -6,7 +6,7 @@ class diary:
         self.screen = screen
         self.filepath = filepath
 
-    def zeichnen(self):
+    def draw(self):
         diary_bild = pygame.image.load(self.filepath).convert()
         #KI_Anfang;
         #benutzte KI: Microsoft Copilot
