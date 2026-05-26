@@ -3,7 +3,6 @@ from Game_Variables.game_variables import GameVariables as GV
 from Game_Variables.game_variables import GameScreens
 from game.sprites import Tilemap
 from src.game.main_screen import main_screen
-from src.assets.game.Attic import Attic
 
 def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Play-Screen")
@@ -18,7 +17,6 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
                     running = False
 
         screen.fill("black")
-        attic = Attic(screen=screen)
 
         pygame.display.flip()
     pygame.quit()

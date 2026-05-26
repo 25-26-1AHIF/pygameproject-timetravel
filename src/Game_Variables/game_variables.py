@@ -10,6 +10,7 @@ class GameVariables:
     FONT_MIDDLE: pygame.font.Font = None
     FONT_SMALL: pygame.font.Font = None
     FONT_BUTTONS: pygame.font.Font = None
+    FONT_MINI: pygame.font.Font = None
 
     @staticmethod
     def init():
@@ -18,6 +19,7 @@ class GameVariables:
         GameVariables.FONT_MIDDLE = pygame.sysfont.SysFont("arial", 40, bold=False)
         GameVariables.FONT_SMALL = pygame.sysfont.SysFont("arial", 24, bold=False)
         GameVariables.FONT_BUTTONS = pygame.sysfont.SysFont("arial", 34, bold=False)
+        GameVariables.FONT_MINI = pygame.sysfont.SysFont("arial", 14, bold=False)
 
 class GameScreens:
     MAIN = "main"
