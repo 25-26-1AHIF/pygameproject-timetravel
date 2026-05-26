@@ -4,6 +4,7 @@ from assets.Game_Variables.game_variables import GameScreens
 from src.assets.game.diary import diary
 from src.assets.game.sprites import Sprite
 from src.assets.game.Attic import Attic
+from src.assets.Game_Variables.player_variables import Player
 
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
@@ -56,6 +57,8 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
 def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Play-Screen")
 
+    player = Player()
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -66,9 +69,14 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
                     running = False
 
         screen.fill("black")
-        Attic(screen=screen)
+
+        Attic(screen)
+        player.move()
+        player.draw(screen)
 
         pygame.display.flip()
+        clock.tick(60)
+
     pygame.quit()
 
 def main():
