@@ -1,10 +1,36 @@
 import pygame
+
 from assets.Game_Variables.game_variables import GameVariables as GV
 from assets.Game_Variables.game_variables import GameScreens
-from src.assets.game.diary import diary
-from src.assets.game.sprites import Sprite
+from assets.Game_Variables.save_system import save_game, load_game
+
 from src.assets.game.Attic import Attic
 from src.assets.Game_Variables.player_variables import Player
+
+
+def pause_screen(screen: pygame.Surface, save_message_timer, pause_bild):
+    screen.blit(pause_bild, (0, 0))
+
+    overlay = pygame.Surface((GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
+    overlay.set_alpha(130)
+    overlay.fill((0, 0, 0))
+
+    pause_text = GV.FONT_BIG.render("PAUSIERT", True, "white")
+    info_text = GV.FONT_SMALL.render(
+        "ESC = weiter | S = speichern | M = Menü | Q = Beenden",
+        True,
+        "white"
+    )
+
+    screen.blit(overlay, (0, 0))
+    screen.blit(pause_text, pause_text.get_rect(center=(GV.SCREEN_WIDTH / 2, GV.SCREEN_HEIGHT / 2 - 40)))
+    screen.blit(info_text, info_text.get_rect(center=(GV.SCREEN_WIDTH / 2, GV.SCREEN_HEIGHT / 2 + 30)))
+
+    if save_message_timer > 0:
+        save_text = GV.FONT_SMALL.render("Erfolgreich gespeichert!", True, "light green")
+        screen.blit(save_text, save_text.get_rect(center=(GV.SCREEN_WIDTH / 2, GV.SCREEN_HEIGHT / 2 + 90)))
+
+    pygame.display.flip()
 
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
@@ -16,48 +42,62 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     laden_text = GV.FONT_BUTTONS.render("Spielstand laden", True, "white")
     beenden_text = GV.FONT_BUTTONS.render("Beenden", True, "white")
 
-    titel_text_rect = titel_text.get_rect(center=(GV.SCREEN_WIDTH/2, 100))
-    untertext_rect = untertext.get_rect(center=(GV.SCREEN_WIDTH/2, 150))
-    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH/2, 350))
-    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 400))
-    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH/2, 450))
+    titel_text_rect = titel_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 100))
+    untertext_rect = untertext.get_rect(center=(GV.SCREEN_WIDTH / 2, 150))
+    starten_text_rect = starten_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 350))
+    laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 400))
+    beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 450))
 
-    main_screen_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png")
-    screen.blit(source=main_screen_bild, dest=(0,0))
+    main_screen_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png").convert()
+    main_screen_bild = pygame.transform.scale(main_screen_bild, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
 
-    running = True
-    while running:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return None
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    return None
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if starten_text_rect.collidepoint(event.pos):
                     return GameScreens.PLAY
                 elif laden_text_rect.collidepoint(event.pos):
                     return GameScreens.LADEN
                 elif beenden_text_rect.collidepoint(event.pos):
-                    running = False
+                    return None
 
-        screen.blit(source=titel_text, dest=titel_text_rect)
-        screen.blit(source=untertext, dest=untertext_rect)
-        pygame.draw.rect(surface=screen, rect=starten_text_rect, color="dark green", width=0)
-        pygame.draw.rect(surface=screen, rect=laden_text_rect, color="dark green", width=0)
-        pygame.draw.rect(surface=screen, rect=beenden_text_rect, color="dark green", width=0)
-        screen.blit(source=starten_text, dest=starten_text_rect)
-        screen.blit(source=laden_text, dest=laden_text_rect)
-        screen.blit(source=beenden_text, dest=beenden_text_rect)
+        screen.blit(main_screen_bild, (0, 0))
 
+        screen.blit(titel_text, titel_text_rect)
+        screen.blit(untertext, untertext_rect)
+
+        pygame.draw.rect(screen, "dark green", starten_text_rect)
+        pygame.draw.rect(screen, "dark green", laden_text_rect)
+        pygame.draw.rect(screen, "dark green", beenden_text_rect)
+
+        screen.blit(starten_text, starten_text_rect)
+        screen.blit(laden_text, laden_text_rect)
+        screen.blit(beenden_text, beenden_text_rect)
 
         pygame.display.flip()
-    pygame.quit()
+        clock.tick(60)
 
-def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
+
+def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     pygame.display.set_caption("TimeTravel - Play-Screen")
 
+    pause_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png").convert()
+    pause_bild = pygame.transform.scale(pause_bild, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
+
     player = Player()
+
+    if load_save:
+        load_game(player)
+
+    paused = False
+    save_message_timer = 0
 
     walls = [
         pygame.Rect(90, 185, 900, 20),
@@ -66,39 +106,66 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
         pygame.Rect(970, 185, 20, 500),
     ]
 
-    running = True
-    while running:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return None
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    paused = not paused
+
+                if paused and event.key == pygame.K_s:
+                    save_game(player)
+                    save_message_timer = 120
+
+                if paused and event.key == pygame.K_m:
+                    return GameScreens.MAIN
+
+                if paused and event.key == pygame.K_q:
+                    return None
+
+        if paused:
+            pause_screen(screen, save_message_timer, pause_bild)
+
+            if save_message_timer > 0:
+                save_message_timer -= 1
+
+            clock.tick(60)
+            continue
 
         screen.fill("black")
 
+        table_rect, stairs_rect = Attic(screen)
+        obstacles = [table_rect, stairs_rect] + walls
 
-        tabele_rect = Attic(screen)
-
-        obstacles = [tabele_rect] + walls
         player.move(obstacles)
         player.draw(screen)
 
         pygame.display.flip()
         clock.tick(60)
 
-    pygame.quit()
 
 def main():
     GV.init()
+
     screen = pygame.display.set_mode((GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    while True:
+
+    GameScreens.actual = GameScreens.MAIN
+
+    while GameScreens.actual is not None:
         if GameScreens.actual == GameScreens.MAIN:
-            GameScreens.actual = main_screen(screen=screen, clock=clock)
+            GameScreens.actual = main_screen(screen, clock)
+
         elif GameScreens.actual == GameScreens.PLAY:
-            GameScreens.actual = play_screen(screen=screen, clock=clock)
+            GameScreens.actual = play_screen(screen, clock, load_save=False)
+
+        elif GameScreens.actual == GameScreens.LADEN:
+            GameScreens.actual = play_screen(screen, clock, load_save=True)
+
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
