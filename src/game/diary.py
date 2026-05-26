@@ -17,4 +17,9 @@ def diary(screen: pygame.Surface, filepath: str):
     screen.blit(sprite_big, dest=(xpos_tagebuch, ypos_tagebuch))
     # KI-Ende
     titel_text_tagebuch = GV.FONT_MINI.render("Irgendwann im Mittelalter", True, "black")
-    screen.blit(source=titel_text_tagebuch, dest=(xpos_tagebuch+35, ypos_tagebuch+60))
+    screen.blit(source=titel_text_tagebuch, dest=(xpos_tagebuch + 35, ypos_tagebuch + 60))
+    medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
+    height_bild = medieval_icon.get_height()/scale_factor
+    width_bild = medieval_icon.get_width() / scale_factor
+    icon_klein = pygame.transform.scale(medieval_icon, (width_bild, height_bild))
+    screen.blit(source=icon_klein, dest=(xpos_tagebuch+50, ypos_tagebuch+100))
