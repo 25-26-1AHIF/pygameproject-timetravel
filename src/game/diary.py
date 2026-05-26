@@ -1,8 +1,8 @@
 from src.Game_Variables.game_variables import GameVariables as GV
 import pygame
 
-def diary(screen: pygame.Surface):
-    diary_bild = pygame.image.load("assets/Sprites/Diary/Diary_geschlossen.png").convert()
+def diary(screen: pygame.Surface, filepath: str):
+    diary_bild = pygame.image.load(filepath).convert()
     #screen.blit(diary_bild, dest=(GV.SCREEN_WIDTH/2 - diary_bild_breite/2, GV.SCREEN_HEIGHT/2 - diary_bild_breite/2))
 
     #KI_Anfang;

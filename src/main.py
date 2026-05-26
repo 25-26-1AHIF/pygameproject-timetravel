@@ -3,6 +3,7 @@ from Game_Variables.game_variables import GameVariables as GV
 from Game_Variables.game_variables import GameScreens
 from game.sprites import Tilemap
 from src.game.main_screen import main_screen
+from src.game.diary import diary
 
 def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Play-Screen")
@@ -15,8 +16,8 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
-
         screen.fill("black")
+        diary_bild = diary(screen, "assets/Sprites/Diary/Diary.png")
 
         pygame.display.flip()
     pygame.quit()

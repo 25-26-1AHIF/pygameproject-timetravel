@@ -18,7 +18,7 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     laden_text_rect = laden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 400))
     beenden_text_rect = beenden_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 450))
 
-    main_screen_bild = pygame.image.load("assets/Bilder/Main_Screen-Bild.png")
+    main_screen_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png")
     screen.blit(source=main_screen_bild, dest=(0, 0))
 
     running = True
