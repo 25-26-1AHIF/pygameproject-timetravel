@@ -59,6 +59,13 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
 
     player = Player()
 
+    walls = [
+        pygame.Rect(90, 185, 900, 20),
+        pygame.Rect(90, 670, 900, 20),
+        pygame.Rect(90, 185, 20, 500),
+        pygame.Rect(970, 185, 20, 500),
+    ]
+
     running = True
     while running:
         for event in pygame.event.get():
@@ -70,8 +77,11 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
 
         screen.fill("black")
 
-        Attic(screen)
-        player.move()
+
+        tabele_rect = Attic(screen)
+
+        obstacles = [tabele_rect] + walls
+        player.move(obstacles)
         player.draw(screen)
 
         pygame.display.flip()

@@ -5,6 +5,6 @@ def Attic(screen: pygame.Surface):
 
     Attic_table = Attic_bild.subsurface((101, 152, 18, 35))
 
-    Attic.bild = pygame.transform.scale_by(Attic_table, 10)
+    Attic.bild = pygame.transform.scale_by(Attic_table, 5)
 
     screen.blit(Attic_table, (0, 0))
