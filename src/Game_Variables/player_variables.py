@@ -20,13 +20,10 @@ class Player:
         self.right = pygame.transform.flip(self.left, True, False)
 
         self.image = self.down
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
 
     def move(self, obstacles):
         keys = pygame.key.get_pressed()
-
-        old_x = self.x
-        old_y = self.y
 
         if keys[pygame.K_a]:
             self.x -= self.speed
@@ -49,3 +46,11 @@ class Player:
             self.image = self.up
         elif self.direction == "down":
             self.image = self.down
+
+    def get_rect(self) -> pygame.Rect:
+        return pygame.Rect(self.x, self.y, 67, 122)
+
+    def draw(self, screen):
+
+        screen.blit(self.image, (self.x, self.y, 67, 122))
+        pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
