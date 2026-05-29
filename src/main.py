@@ -4,6 +4,7 @@ from Game_Variables.game_variables import GameScreens
 from game.sprites import Tilemap
 from src.game.main_screen import main_screen
 from src.game.play_screen import play_screen
+from src.game.medieval_screen import medieval_screen
 
 def main():
     GV.init()
@@ -19,6 +20,8 @@ def main():
             GameScreens.actual = main_screen(screen=screen, clock=clock)
         elif GameScreens.actual == GameScreens.PLAY:
             GameScreens.actual = play_screen(screen=screen, clock=clock)
+        elif GameScreens.actual == GameScreens.MEDIEVAL:
+            GameScreens.actual = medieval_screen(screen=screen, clock=clock)
     pygame.quit()
 
 if __name__ == "__main__":

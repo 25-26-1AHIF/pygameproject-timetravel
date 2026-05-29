@@ -26,4 +26,12 @@ class GameScreens:
     PLAY = "play"
     EXIT = "exit"
     LADEN = "laden"
+    MEDIEVAL = "medieval"
     actual = MAIN
+
+class Icons:
+    scale_factor = 10
+    medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
+    height_bild = medieval_icon.get_height() / scale_factor
+    width_bild = medieval_icon.get_width() / scale_factor
+    icon_klein = pygame.transform.scale(medieval_icon, (width_bild, height_bild))
