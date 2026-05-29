@@ -49,14 +49,3 @@ class Player:
             self.image = self.up
         elif self.direction == "down":
             self.image = self.down
-
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
-
-        for obstacle in obstacles:
-            if self.rect.colliderect(obstacle):
-                self.x = old_x
-                self.y = old_y
-                self.rect = self.image.get_rect(topleft=(self.x, self.y))
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
