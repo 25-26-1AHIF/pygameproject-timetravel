@@ -133,7 +133,7 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     )
 
     Main_screen_bild = pygame.image.load(
-        "assets/Bilder/Main_Screen-Bild.png"
+        "assets/Sprites/Main_Screen-Bild.png"
     ).convert()
 
     Main_screen_bild = pygame.transform.scale(
@@ -233,7 +233,7 @@ def play_screen(
     pygame.display.set_caption("TimeTravel - Play-Screen")
 
     pause_bild = pygame.image.load(
-        "assets/Bilder/Main_Screen-Bild.png"
+        "assets/Sprites/Main_Screen-Bild.png"
     ).convert()
 
     pause_bild = pygame.transform.scale(

@@ -2,7 +2,7 @@ import pygame
 
 def Attic(screen: pygame.Surface):
 
-    attic = pygame.image.load("assets/Bilder/Attic.Topdown.png").convert()
+    attic = pygame.image.load("assets/Sprites/Attic/Attic.Topdown.png").convert()
 
     attic = pygame.transform.scale(attic, (1080, 720))
 
