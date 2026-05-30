@@ -1,26 +1,55 @@
 import pygame
-from src.game.diary import diary
 from src.Game_Variables.game_variables import GameScreens
-from src.Game_Variables.game_variables import Icons
+from src.Game_Variables.player_variables import Player
+from src.Game_Variables.game_variables import GameVariables as GV
+from src.game.pause_screen import pause_screen
+from src.game.Attic import Attic
+from src.Game_Variables.save_system import save_game
+from src.Game_Variables.save_system import load_game
 
-def play_screen(screen: pygame.Surface, clock: pygame.time.Clock):
+def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     pygame.display.set_caption("TimeTravel - Play-Screen")
-    icon_medieval = Icons.icon_klein
-    icon_medieval_rect = icon_medieval.get_rect()
-    running = True
-    while running:
+    pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
+    pause_bild = pygame.transform.scale(pause_bild, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
+    player = Player()
+    if load_save:
+        load_game(player)
+    paused = False
+    save_message_timer = 0
+    walls = [
+        pygame.Rect(90, 185, 900, 20),
+        pygame.Rect(90, 670, 900, 20),
+        pygame.Rect(90, 185, 20, 500),
+        pygame.Rect(970, 185, 20, 500),
+    ]
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.KEYDOWN:
+                return None
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if icon_medieval_rect.collidepoint(event.pos):
-                    return GameScreens.MEDIEVAL
+                    paused = not paused
+                if paused and event.key == pygame.K_s:
+                    save_game(player)
+                    save_message_timer = 120
+                if paused and event.key == pygame.K_m:
+                    return GameScreens.MAIN
+                if paused and event.key == pygame.K_q:
+                    return None
+        if paused:
+            pause_screen(
+                screen,
+                save_message_timer,
+                pause_bild
+            )
+            if save_message_timer > 0:
+                save_message_timer -= 1
+            clock.tick(60)
+            continue
         screen.fill("black")
-        diary_bild = diary(screen, "assets/Sprites/Diary/Diary.png")
-        diary_bild.draw()
-
+        table_rect, stairs_rect = Attic(screen)
+        obstacles = [table_rect, stairs_rect] + walls
+        player.move(obstacles)
+        player.draw(screen)
         pygame.display.flip()
-    pygame.quit()
+        clock.tick(60)
