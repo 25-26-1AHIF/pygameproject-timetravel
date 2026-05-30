@@ -25,4 +25,14 @@
 - main_screen ausgelagert auf main_screen.py
 - Tilemap - loader gebaut mithilfe von Hr. Bechtold
 - Tagebuch Sprite erstellt mit Ausklappen
+
+### 29.05.2026:
+- Main Branch wurde aufgeräumt mit Hr. Bechtold
+- Logik aufgeräumt 
+
+### 30.05.2026:
+- Main von ca. 300 Zeilen Code auf 22 Zeilen aufgeräumt. 
+- Play_Screen, Main_Screen & Pause_Screen wurden ausgelagert. 
+- Den Code Aufgeräumt.
+
 ## Furkan Yildiz:
