@@ -5,9 +5,10 @@ class diary:
     def __init__(self, screen: pygame.Surface, filepath: str):
         self.screen = screen
         self.filepath = filepath
+        self.font_mini = pygame.font.SysFont("Georgia",10)
 
     def draw(self):
-        diary_bild = pygame.image.load(self.filepath).convert()
+        diary_bild = pygame.image.load(self.filepath).convert_alpha()
         #KI_Anfang;
         #benutzte KI: Microsoft Copilot
         # Prompt: Wie kann ich in Pycharm ein Sprite vergrößert darstellen,
@@ -21,7 +22,8 @@ class diary:
         sprite_big = pygame.transform.scale(diary_bild, (width, height))
         self.screen.blit(sprite_big, dest=(xpos_tagebuch, ypos_tagebuch))
         # KI-Ende
-        titel_text_tagebuch = GV.FONT_MINI.render("Irgendwann im Mittelalter", True, "black")
+
+        titel_text_tagebuch = self.font_mini.render("Irgendwann im Mittelalter", True, "black")
         self.screen.blit(source=titel_text_tagebuch, dest=(xpos_tagebuch + 35, ypos_tagebuch + 60))
         medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
         height_bild = medieval_icon.get_height()/scale_factor

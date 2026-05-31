@@ -6,12 +6,16 @@ from src.game.pause_screen import pause_screen
 from src.game.Attic import Attic
 from src.Game_Variables.save_system import save_game
 from src.Game_Variables.save_system import load_game
+from src.game.diary import diary as diary_ausfuehren
 
 def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
+    GV.init()
+    diary_open = False
     pygame.display.set_caption("TimeTravel - Play-Screen")
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     pause_bild = pygame.transform.scale(pause_bild, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     player = Player()
+    diary = diary_ausfuehren(screen=screen, filepath="assets/Sprites/Diary/Diary.png")
     if load_save:
         load_game(player)
     paused = False
@@ -27,6 +31,8 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
             if event.type == pygame.QUIT:
                 return None
             if event.type == pygame.KEYDOWN:
+                if player.interact(screen=screen) and event.key == pygame.K_e:
+                    diary_open = True
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
                 if paused and event.key == pygame.K_s:
@@ -50,6 +56,9 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
         table_rect, stairs_rect = Attic(screen)
         obstacles = [table_rect, stairs_rect] + walls
         player.move(obstacles)
+        player.interact(screen=screen)
+        if diary_open == True:
+            diary.draw()
         player.draw(screen)
         pygame.display.flip()
         clock.tick(60)

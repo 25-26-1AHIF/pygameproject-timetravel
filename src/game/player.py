@@ -1,5 +1,5 @@
 import pygame
-
+from src.Game_Variables.game_variables import GameVariables as GV
 class Player:
 
     def __init__(self):
@@ -8,9 +8,7 @@ class Player:
         self.speed = 15
         self.direction = "down"
 
-        sheet = pygame.image.load(
-            "assets/Sprites/Characters/Male person/Player.TopDown.png"
-        ).convert_alpha()
+        sheet = pygame.image.load("assets/Sprites/Characters/Male person/Player.TopDown.png").convert_alpha()
 
         sheet = pygame.transform.scale(sheet, (512, 512))
 
@@ -54,3 +52,13 @@ class Player:
 
         screen.blit(self.image, (self.x, self.y, 67, 122))
         pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
+
+    def interact(self, screen) -> bool:
+        if self.x > 700 and self.x < 880 and self.y > 350 and self.y < 500:
+            interact_font = pygame.font.SysFont("Georgia", 32, False, False)
+            interact_text = interact_font.render("Press 'E' to interact", True, (245, 230, 200))
+            interact_text_rect = interact_text.get_rect(center=(GV.SCREEN_WIDTH/2, GV.SCREEN_HEIGHT/2))
+            screen.blit(interact_text, interact_text_rect)
+            return True
+        else:
+            return False

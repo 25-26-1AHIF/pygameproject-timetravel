@@ -2,6 +2,7 @@ import pygame
 from src.Game_Variables.game_variables import GameVariables as GV
 
 def pause_screen(screen: pygame.Surface, save_message_timer, pause_bild):
+    GV.init()
     screen.blit(pause_bild, (0, 0))
     overlay = pygame.Surface((GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     overlay.set_alpha(140)
