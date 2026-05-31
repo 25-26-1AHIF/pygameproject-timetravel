@@ -35,4 +35,9 @@
 - Play_Screen, Main_Screen & Pause_Screen wurden ausgelagert. 
 - Den Code Aufgeräumt.
 
+### 31.05.2026:
+- Background Sprites gelöscht
+- Grund: nicht Top Down und schwer aus dem Tilesheet rauszulesen
+- Nicht verwendet
+- 1pxl Gap beim Tisch raus geschnitten.
 ## Furkan Yildiz:
