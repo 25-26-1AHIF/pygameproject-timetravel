@@ -46,4 +46,5 @@
 - player_variables auch da rein ergänzt um verwirrung vorzubeugen
 - Tisch grün gemach damit das Tagebuch besser sichtbar ist
 - Tagebuch interaktion in den play_screen eingefügt
+- Speichern/Laden Bug gefixed
 ## Furkan Yildiz:
