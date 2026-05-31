@@ -1,6 +1,6 @@
 import pygame
 from src.Game_Variables.game_variables import GameScreens
-from src.Game_Variables.player_variables import Player
+from src.game.player import Player
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.game.pause_screen import pause_screen
 from src.game.Attic import Attic
