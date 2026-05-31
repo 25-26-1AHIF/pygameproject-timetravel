@@ -44,4 +44,5 @@
 - player.py aus src.assets gelöscht 
 - in src.game reingetan
 - player_variables auch da rein ergänzt um verwirrung vorzubeugen
+- Tisch grün gemach damit das Tagebuch besser sichtbar ist
 ## Furkan Yildiz:
