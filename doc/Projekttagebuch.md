@@ -39,5 +39,9 @@
 - Background Sprites gelöscht
 - Grund: nicht Top Down und schwer aus dem Tilesheet rauszulesen
 - Nicht verwendet
-- 1pxl Gap beim Tisch raus geschnitten.
+- 1pxl Gap beim Tisch raus geschnitten
+- Unnötige Charaktere gelöscht, 
+- player.py aus src.assets gelöscht 
+- in src.game reingetan
+- player_variables auch da rein ergänzt um verwirrung vorzubeugen
 ## Furkan Yildiz:
