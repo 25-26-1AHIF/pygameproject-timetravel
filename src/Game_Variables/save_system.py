@@ -28,4 +28,5 @@ def load_game(player):
     player.y = data["player_y"]
     player.direction = data["direction"]
 
-    player.rect.topleft = (player.x, player.y)
+    player_rect = player.get_rect()
+    player_rect.topleft = (player.x, player.y)
