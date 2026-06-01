@@ -26,4 +26,5 @@ class GameScreens:
     PLAY = "play"
     EXIT = "exit"
     LADEN = "laden"
+    MEDIEVAL = "medieval"
     actual = MAIN

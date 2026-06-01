@@ -24,16 +24,14 @@ class Sprite:
         screen.blit(self.images[(frame_counter// self.animation_speed) % self.image_count], dest=(xpos, ypos))
 
 class Tilemap:
-    def __init__(self, filepath: str, image_count: tuple[int, int], image_rect: pygame.Rect, animation_speed: int):
+    def __init__(self, filepath: str, image_count: tuple[int, int], image_rect: pygame.Rect):
         self.filepath = filepath
         self.image_count = image_count
         self.image_rect = image_rect
         self.images: list[list[pygame.Surface]] = []
-        self.animation_speed = animation_speed
 
-    def load_spritesheet(self) -> None:
+    def load_spritesheet(self):
         sprite_sheet = pygame.image.load(self.filepath).convert()
-
         for image_index_y in range(self.image_count[1]):
             self.images.append([])
             for image_index_x in range(self.image_count[0]):
@@ -44,7 +42,7 @@ class Tilemap:
                                    self.image_rect.width,
                                    self.image_rect.height))
                 self.images[image_index_y].append(image_surface)
-        print(self.images)
+        return self.images
 
     # def draw(self, screen: pygame.Surface, xpos: float | int, ypos: float | int, frame_counter: int):
     #    screen.blit(self.images[(frame_counter// self.animation_speed) % self.image_count], dest=(xpos, ypos))

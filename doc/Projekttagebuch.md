@@ -47,4 +47,10 @@
 - Tisch grün gemach damit das Tagebuch besser sichtbar ist
 - Tagebuch interaktion in den play_screen eingefügt
 - Speichern/Laden Bug gefixed
+
+### 01.06.2026:
+- Play-Screen gebaut
+- Tilemap-leser angepasst
+- Tagebuchlogik so gemacht, dass wenn man 'E' drückt es öffnet und wenn man nochmal 'E' drückt dann schließt es sich.
+- alles etwas angepasst
 ## Furkan Yildiz:

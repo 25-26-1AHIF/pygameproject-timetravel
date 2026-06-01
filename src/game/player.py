@@ -49,7 +49,6 @@ class Player:
         return pygame.Rect(self.x, self.y, 67, 122)
 
     def draw(self, screen):
-
         screen.blit(self.image, (self.x, self.y, 67, 122))
         pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
 
