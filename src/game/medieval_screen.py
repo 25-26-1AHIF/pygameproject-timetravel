@@ -12,6 +12,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     GV.init()
     pygame.display.set_caption("Medieval_Screen")
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
+    tilemap_bild = pygame.image.load("assets/Sprites/Town (medieval)/Tilemap/tilemap.png").convert_alpha()
     player = Player()
     save_message_timer = 0
     if load_save:
@@ -45,12 +46,9 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     castle_object = GameObject(tilemap, castle_map, 800, 400, 300, 200)
 
-    #brunnen_map = [
-    #    [(7,8)],
-    #    [(8,8)],
-    #]
-    #brunnen_object = GameObject(tilemap, brunnen_map, 400, 400, 100, 50)
-
+    house_red_rect = house_object.get_rect()
+    house_grey_rect = grey_house_object.get_rect()
+    castle_rect = castle_object.get_rect()
 
 
     level_map = [
@@ -93,16 +91,18 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         screen.fill("black")
         screen.blit(scaled_map, (0, 0))
         brunnen = pygame.Surface((32, 35), pygame.SRCALPHA)
-        brunnen_up = scaled_map.subsurface(153, 136, 16, 17)
-        brunnen_down = scaled_map.subsurface(153, 153, 16, 17)
+        brunnen_up = tilemap_bild.subsurface(136, 119, 16, 17)
+        brunnen_down = tilemap_bild.subsurface(136, 136, 16, 17)
         brunnen.blit(brunnen_up, (0,0))
         brunnen.blit(brunnen_down, (0,16))
-        screen.blit(brunnen, (400,400))
+        brunnen = pygame.transform.scale(brunnen, (175,250))
+        screen.blit(brunnen, (500, 400))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)
         player.draw(screen)
-        player.move(obstacles=0)
+        obstacles = [house_red_rect,house_grey_rect,castle_rect]
+        player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()

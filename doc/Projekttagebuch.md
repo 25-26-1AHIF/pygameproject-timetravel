@@ -63,4 +63,9 @@
 - Bugs gefixed
 - Häuser gebaut
 - Brunnen versucht zu bauen
+- Brunnen gebaut, mit transparenz
+- interagieren so ausgebaut, dass es interaktiv ist
+- Wand und Obstacles usw. in Play_Screen gebaut, so dass sie funktionieren
+- In Medieval_Screen fehlt noch Häuser_kollisionen und Quiz
+
 ## Furkan Yildiz:

@@ -19,22 +19,36 @@ class Player:
 
         self.image = self.down
 
-
     def move(self, obstacles):
         keys = pygame.key.get_pressed()
 
+        dx = 0
+        dy = 0
+
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            self.x -= self.speed
+            dx = -self.speed
             self.direction = "left"
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            self.x += self.speed
+            dx = self.speed
             self.direction = "right"
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            self.y -= self.speed
+            dy = -self.speed
             self.direction = "up"
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            self.y += self.speed
+            dy = self.speed
             self.direction = "down"
+
+        new_rect = self.get_rect().move(dx, dy)
+
+        collision = False
+        for obstacle in obstacles:
+            if new_rect.colliderect(obstacle):
+                collision = True
+                break
+
+        if not collision:
+            self.x += dx
+            self.y += dy
 
         if self.direction == "left":
             self.image = self.left
@@ -50,14 +64,10 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y, 67, 122))
-        pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
+       # pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
 
-    def interact(self, screen) -> bool:
-        if self.x > 700 and self.x < 880 and self.y > 350 and self.y < 500:
-            interact_font = pygame.font.SysFont("Georgia", 32, False, False)
-            interact_text = interact_font.render("Press 'E' to interact", True, (245, 230, 200))
-            interact_text_rect = interact_text.get_rect(center=(GV.SCREEN_WIDTH/2, GV.SCREEN_HEIGHT/2))
-            screen.blit(interact_text, interact_text_rect)
-            return True
-        else:
-            return False
+    def interact(self, interactables):
+        for obj in interactables:
+            if self.get_rect().colliderect(obj["rect"]):
+                return obj["action"]
+        return None

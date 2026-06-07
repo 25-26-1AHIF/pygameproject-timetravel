@@ -28,11 +28,12 @@ def Attic(screen: pygame.Surface):
     # KI Ende
 
     table = pygame.transform.scale(table, (120, 200))
-    table_rect = pygame.Rect(820, 380, 30, 60)
+    table_rect = table.get_rect(topleft=(795, 360))
+    table_collision_rect = pygame.Rect(795, 360, 50, 120)
     screen.blit(attic, (0, 0))
     screen.blit(table, (795, 360))
     screen.blit(diary_closed, (785, 440))
     screen.blit(mini_text, mini_text_rect)
     screen.blit(stairs, (180, 300))
 
-    return table_rect, stairs_rect
+    return table_rect, stairs_rect, table_collision_rect

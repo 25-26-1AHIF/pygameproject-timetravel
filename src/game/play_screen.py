@@ -28,12 +28,13 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
         pygame.Rect(90, 185, 20, 500),
         pygame.Rect(970, 185, 20, 500),
     ]
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return None
             if event.type == pygame.KEYDOWN:
-                if player.interact(screen=screen) and event.key == pygame.K_e:
+                if action == "diary" and event.key == pygame.K_e:
                     diary_open = not diary_open
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
@@ -46,7 +47,7 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
                     return None
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if medieval_icon_rect.collidepoint(event.pos):
-                    return GameScreens.MEDIEVAL
+                   return GameScreens.MEDIEVAL
         if paused:
             pause_screen(
                 screen,
@@ -58,10 +59,23 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
             clock.tick(60)
             continue
         screen.fill("black")
-        table_rect, stairs_rect = Attic(screen)
-        obstacles = [table_rect, stairs_rect] + walls
+        table_rect, stairs_rect, table_collision_rect = Attic(screen)
+        interactables = [
+            {"rect": table_rect, "action": "diary"},
+        ]
+        obstacles = [table_collision_rect, stairs_rect] + walls
+        action = player.interact(interactables)
         player.move(obstacles)
-        player.interact(screen=screen)
+        #print("Player:", player.get_rect())
+        #print("Table:", table_rect)
+        #print("Collide:", player.get_rect().colliderect(table_rect))
+        #pygame.draw.rect(screen, (255, 0, 0), table_rect, 3)
+        #pygame.draw.rect(screen, (255, 0, 0), table_collision_rect, 3)
+
+        if action:
+            font = pygame.font.SysFont("Georgia", 32)
+            text = font.render("Press E to interact", True, (255, 255, 255))
+            screen.blit(text, (player.x - 150,player.y - 40))
         if diary_open == True:
             diary.draw()
         player.draw(screen)

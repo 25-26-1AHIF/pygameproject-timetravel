@@ -1,7 +1,6 @@
 import pygame
 from pygame import SRCALPHA
 
-
 class GameVariables:
     SCREEN_WIDTH = 1080
     SCREEN_HEIGHT = 720
@@ -57,6 +56,9 @@ class GameObject:
                 obj_surface.blit(tile_bild, (col * self.tile_width, row * self.tile_height))
 
         return obj_surface
+
+    def get_rect(self):
+        return self.image.get_rect()
 
     def draw(self, screen):
         self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
