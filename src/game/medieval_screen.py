@@ -21,6 +21,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     tilemap = Tilemap("assets/Sprites/Town (medieval)/Tilemap/tilemap_packed.png",
                       (12, 11), image_rect)
     tilemap = tilemap.load_spritesheet()
+    print(tilemap[7][8].get_alpha())
     house_map = [
         [(4,0), (4,1), (4,3), (4,2)],
         [(5,0), (5,3), (5,1), (5,2)],
@@ -43,6 +44,14 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
 
     castle_object = GameObject(tilemap, castle_map, 800, 400, 300, 200)
+
+    #brunnen_map = [
+    #    [(7,8)],
+    #    [(8,8)],
+    #]
+    #brunnen_object = GameObject(tilemap, brunnen_map, 400, 400, 100, 50)
+
+
 
     level_map = [
         [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0)],
@@ -83,6 +92,12 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             continue
         screen.fill("black")
         screen.blit(scaled_map, (0, 0))
+        brunnen = pygame.Surface((32, 35), pygame.SRCALPHA)
+        brunnen_up = scaled_map.subsurface(153, 136, 16, 17)
+        brunnen_down = scaled_map.subsurface(153, 153, 16, 17)
+        brunnen.blit(brunnen_up, (0,0))
+        brunnen.blit(brunnen_down, (0,16))
+        screen.blit(brunnen, (400,400))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)
@@ -101,7 +116,8 @@ def build_map_surface(tilemap, level_map, tile_w=16, tile_h=16):
     cols = len(level_map[0])
 
     # Surface für die ganze Map
-    map_surface = pygame.Surface((cols * tile_w, rows * tile_h))
+    map_surface = pygame.Surface((cols * tile_w, rows * tile_h), pygame.SRCALPHA)
+    map_surface.fill((0,0,0,0))
 
     for row in range(rows):
         for col in range(cols):

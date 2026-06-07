@@ -61,4 +61,6 @@
 - Haus platziert
 - Aufgeräumt
 - Bugs gefixed
+- Häuser gebaut
+- Brunnen versucht zu bauen
 ## Furkan Yildiz:

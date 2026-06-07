@@ -1,4 +1,6 @@
 import pygame
+from pygame import SRCALPHA
+
 
 class GameVariables:
     SCREEN_WIDTH = 1080
@@ -40,17 +42,12 @@ class GameObject:
         self.scale_w = scale_w
         self.tilemap = tilemap
         self.image = self.get_image()
-        self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
-        self.image = self.image.convert_alpha()
         self.rect = self.image.get_rect(topleft=(x, y))
 
     def get_image(self):
         rows = len(self.object_map)
         cols = len(self.object_map[0])
-        obj_surface = pygame.Surface(
-            (cols * self.tile_width, rows * self.tile_height),
-            pygame.SRCALPHA
-        ).convert_alpha()
+        obj_surface = pygame.Surface((cols * self.tile_width, rows * self.tile_height), SRCALPHA)
 
         for row in range(rows):
             for col in range(cols):
@@ -62,4 +59,5 @@ class GameObject:
         return obj_surface
 
     def draw(self, screen):
+        self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
         screen.blit(self.image, (self.x, self.y))
