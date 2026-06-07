@@ -53,4 +53,12 @@
 - Tilemap-leser angepasst
 - Tagebuchlogik so gemacht, dass wenn man 'E' drückt es öffnet und wenn man nochmal 'E' drückt dann schließt es sich.
 - alles etwas angepasst
+
+### 07.06.2026:
+- Play_screen sehr ausgebaut
+- Map gezeichnet
+- Objekte erstellt
+- Haus platziert
+- Aufgeräumt
+- Bugs gefixed
 ## Furkan Yildiz:

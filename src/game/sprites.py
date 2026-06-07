@@ -31,7 +31,7 @@ class Tilemap:
         self.images: list[list[pygame.Surface]] = []
 
     def load_spritesheet(self):
-        sprite_sheet = pygame.image.load(self.filepath).convert()
+        sprite_sheet = pygame.image.load(self.filepath).convert_alpha()
         for image_index_y in range(self.image_count[1]):
             self.images.append([])
             for image_index_x in range(self.image_count[0]):

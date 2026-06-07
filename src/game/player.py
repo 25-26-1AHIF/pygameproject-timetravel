@@ -23,16 +23,16 @@ class Player:
     def move(self, obstacles):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.x -= self.speed
             self.direction = "left"
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.x += self.speed
             self.direction = "right"
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             self.y -= self.speed
             self.direction = "up"
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.y += self.speed
             self.direction = "down"
 

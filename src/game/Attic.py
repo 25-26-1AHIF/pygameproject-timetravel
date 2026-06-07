@@ -16,7 +16,6 @@ def Attic(screen: pygame.Surface):
     mini_text = mini_font.render("Diary", True, "#f09941")
     mini_text_rect = mini_text.get_rect(center=(827, 460))
 
-
     # KI Anfang
     # benutzte KI: Microsoft Copilot
     # Prompt: Das Problem ist jetzt, dass der Tisch jetzt 1pxl Gap hat dazwischen,

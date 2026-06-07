@@ -28,3 +28,38 @@ class GameScreens:
     LADEN = "laden"
     MEDIEVAL = "medieval"
     actual = MAIN
+
+class GameObject:
+    def __init__(self, tilemap, object_map, x, y, scale_h, scale_w, tile_width=16, tile_height=16):
+        self.object_map = object_map
+        self.x = x
+        self.y = y
+        self.tile_width = tile_width
+        self.tile_height = tile_height
+        self.scale_h = scale_h
+        self.scale_w = scale_w
+        self.tilemap = tilemap
+        self.image = self.get_image()
+        self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
+        self.image = self.image.convert_alpha()
+        self.rect = self.image.get_rect(topleft=(x, y))
+
+    def get_image(self):
+        rows = len(self.object_map)
+        cols = len(self.object_map[0])
+        obj_surface = pygame.Surface(
+            (cols * self.tile_width, rows * self.tile_height),
+            pygame.SRCALPHA
+        ).convert_alpha()
+
+        for row in range(rows):
+            for col in range(cols):
+                row_tilemap, col_tilemap = self.object_map[row][col]
+                tile_bild = self.tilemap[row_tilemap][col_tilemap]
+
+                obj_surface.blit(tile_bild, (col * self.tile_width, row * self.tile_height))
+
+        return obj_surface
+
+    def draw(self, screen):
+        screen.blit(self.image, (self.x, self.y))
