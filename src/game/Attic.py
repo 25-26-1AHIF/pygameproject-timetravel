@@ -29,7 +29,7 @@ def Attic(screen: pygame.Surface):
 
     table = pygame.transform.scale(table, (120, 200))
     table_rect = table.get_rect(topleft=(795, 360))
-    table_collision_rect = pygame.Rect(795, 360, 50, 120)
+    table_collision_rect = pygame.Rect(825, 370, 50, 120)
     screen.blit(attic, (0, 0))
     screen.blit(table, (795, 360))
     screen.blit(diary_closed, (785, 440))
