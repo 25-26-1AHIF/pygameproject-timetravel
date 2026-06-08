@@ -70,5 +70,7 @@
 
 ### 08.06.2026:
 - gefixed dass Player nicht aus der Map rausrennen kann
+- Map vergrößert, 
+- verhindert dass Player in/durch Gebäude laufen kann
 
 ## Furkan Yildiz:
