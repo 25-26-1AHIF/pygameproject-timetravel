@@ -72,5 +72,7 @@
 - gefixed dass Player nicht aus der Map rausrennen kann
 - Map vergrößert, 
 - verhindert dass Player in/durch Gebäude laufen kann
+- großen Bug mit transparenz gelöst
+- Brunnen und Castle automatisiert
 
 ## Furkan Yildiz:

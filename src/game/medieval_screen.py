@@ -7,6 +7,7 @@ from src.Game_Variables.save_system import load_game
 from src.game.player import Player
 from src.game.pause_screen import pause_screen
 from src.game.sprites import Tilemap
+from pygame import SRCALPHA
 
 def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     GV.init()
@@ -40,15 +41,23 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     castle_map = [
         [(8,0), (8,1), (8,2)],
         [(10,0), (10,1), (10,2)],
-        [(10,6), (10,5),(10,6)],
-        [(10,6), (10,6), (10,6)],
+        [(10,6), (9,3), (9,4)],
+        [(10,6), (10,3), (10,4)],
     ]
 
     castle_object = GameObject(tilemap, castle_map, 750, 400, 250, 150)
 
+    brunnen_map = [
+        [(7,8)],
+        [(8,8)],
+    ]
+
+    brunnen_object = GameObject(tilemap, brunnen_map, 400, 350, 150, 75)
+
     house_red_rect = house_object.rect
     house_grey_rect = grey_house_object.rect
     castle_rect = castle_object.rect
+    brunnen_rect = brunnen_object.rect
 
 
     level_map = [
@@ -92,22 +101,17 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             continue
         screen.fill("black")
         screen.blit(scaled_map, (0, 0))
-        brunnen = pygame.Surface((32, 35), pygame.SRCALPHA)
-        brunnen_up = tilemap_bild.subsurface(136, 119, 16, 17)
-        brunnen_down = tilemap_bild.subsurface(136, 136, 16, 17)
-        brunnen.blit(brunnen_up, (0,0))
-        brunnen.blit(brunnen_down, (0,16))
-        brunnen = pygame.transform.scale(brunnen, (125,200))
-        screen.blit(brunnen, (350, 350))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)
+        brunnen_object.draw(screen)
         player.draw(screen)
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
         wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
         wand_unten = pygame.Rect((0, GV.SCREEN_HEIGHT -5, GV.SCREEN_WIDTH, 5))
-        obstacles = [house_red_rect,house_grey_rect,castle_rect, wand_links,
+        obstacles = [house_red_rect,house_grey_rect,castle_rect,
+                     wand_links, brunnen_rect,
                      wand_rechts, wand_oben, wand_unten]
         player.move(obstacles=obstacles)
         pygame.display.flip()

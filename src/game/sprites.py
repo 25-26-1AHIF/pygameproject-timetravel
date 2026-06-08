@@ -1,4 +1,6 @@
 import pygame
+from pygame import SRCALPHA
+
 
 class Sprite:
     def __init__(self, filepath: str, image_count: int, image_rect: pygame.Rect, animation_speed: int):
@@ -36,7 +38,7 @@ class Tilemap:
         for image_index_y in range(self.image_count[1]):
             self.images.append([])
             for image_index_x in range(self.image_count[0]):
-                image_surface = pygame.Surface(self.image_rect.size).convert_alpha()
+                image_surface = pygame.Surface(self.image_rect.size, SRCALPHA).convert_alpha()
                 image_surface.blit(sprite_sheet, dest=(0,0),
                                    area=pygame.Rect(image_index_x*self.image_rect.width,
                                    image_index_y * self.image_rect.height,
