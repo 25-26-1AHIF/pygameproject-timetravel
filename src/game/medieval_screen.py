@@ -28,14 +28,14 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(5,0), (5,3), (5,1), (5,2)],
         [(6,0), (7,0), (7,1), (6,3)],
     ]
-    house_object = GameObject(tilemap, house_map, 115,125, 200, 300)
+    house_object = GameObject(tilemap, house_map, 95,100, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
 
     grey_house_map = [
         [(4, 4), (4, 5), (4, 7), (4, 6)],
         [(5, 4), (5, 7), (5, 5), (5, 6)],
         [(6, 4), (7, 4), (7, 5), (6, 7)],
     ]
-    grey_house_object = GameObject(tilemap, grey_house_map, 600,0, 200, 300)
+    grey_house_object = GameObject(tilemap, grey_house_map, 475,0, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
 
     castle_map = [
         [(8,0), (8,1), (8,2)],
@@ -44,27 +44,29 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(10,6), (10,6), (10,6)],
     ]
 
-    castle_object = GameObject(tilemap, castle_map, 800, 400, 300, 200)
+    castle_object = GameObject(tilemap, castle_map, 750, 400, 250, 150)
 
-    house_red_rect = house_object.get_rect()
-    house_grey_rect = grey_house_object.get_rect()
-    castle_rect = castle_object.get_rect()
+    house_red_rect = house_object.rect
+    house_grey_rect = grey_house_object.rect
+    castle_rect = castle_object.rect
 
 
     level_map = [
-        [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0)],
-        [(0,0), (0,0), (0,0), (0,0), (0,0), (2,0), (0,0), (0,0)],
-        [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0)],
-        [(0,1), (0,2), (3,3), (0,2), (0,0), (2,0), (0,0), (0,0)],
-        [(0,1), (0,2), (3,6), (0,0), (0,0), (2,0), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (1,1), (1,1), (3,3), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0)],
-        [(0,1), (0,2), (3,0), (3,1), (3,1), (3,2), (0,0), (0,0)],
-        [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0)],
+        [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (0,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (3,3), (0,2), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (3,6), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (1,1), (1,1), (3,3), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (3,0), (3,1), (3,1), (3,2), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
     ]
     map_surface = build_map_surface(tilemap, level_map)
     scaled_map = pygame.transform.scale(map_surface, (1080, 720))
@@ -95,8 +97,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         brunnen_down = tilemap_bild.subsurface(136, 136, 16, 17)
         brunnen.blit(brunnen_up, (0,0))
         brunnen.blit(brunnen_down, (0,16))
-        brunnen = pygame.transform.scale(brunnen, (175,250))
-        screen.blit(brunnen, (500, 400))
+        brunnen = pygame.transform.scale(brunnen, (125,200))
+        screen.blit(brunnen, (350, 350))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)

@@ -13,6 +13,9 @@ class GameVariables:
     FONT_BUTTONS: pygame.font.Font = None
     FONT_MINI: pygame.font.Font = None
 
+    HOUSE_SCALE_H = 150
+    HOUSE_SCALE_W = 250
+
     @staticmethod
     def init():
         pygame.init()
@@ -41,6 +44,7 @@ class GameObject:
         self.scale_w = scale_w
         self.tilemap = tilemap
         self.image = self.get_image()
+        self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
         self.rect = self.image.get_rect(topleft=(x, y))
 
     def get_image(self):
@@ -57,9 +61,8 @@ class GameObject:
 
         return obj_surface
 
-    def get_rect(self):
-        return self.image.get_rect()
+    #def get_rect(self):
+    #    return pygame.Rect((self.x, self.y, self.image.get_width(), self.get_image().get_height()))
 
     def draw(self, screen):
-        self.image = pygame.transform.scale(self.image, (self.scale_w,self.scale_h))
         screen.blit(self.image, (self.x, self.y))
