@@ -68,4 +68,7 @@
 - Wand und Obstacles usw. in Play_Screen gebaut, so dass sie funktionieren
 - In Medieval_Screen fehlt noch Häuser_kollisionen und Quiz
 
+### 08.06.2026:
+- gefixed dass Player nicht aus der Map rausrennen kann
+
 ## Furkan Yildiz:

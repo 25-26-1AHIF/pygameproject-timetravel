@@ -101,7 +101,12 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         grey_house_object.draw(screen)
         castle_object.draw(screen)
         player.draw(screen)
-        obstacles = [house_red_rect,house_grey_rect,castle_rect]
+        wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
+        wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
+        wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
+        wand_unten = pygame.Rect((0, GV.SCREEN_HEIGHT -5, GV.SCREEN_WIDTH, 5))
+        obstacles = [house_red_rect,house_grey_rect,castle_rect, wand_links,
+                     wand_rechts, wand_oben, wand_unten]
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)
