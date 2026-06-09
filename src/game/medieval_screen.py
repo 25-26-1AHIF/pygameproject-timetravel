@@ -39,20 +39,26 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     grey_house_object = GameObject(tilemap, grey_house_map, 475,0, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
 
     castle_map = [
-        [(8,0), (8,1), (8,2)],
-        [(10,0), (10,1), (10,2)],
-        [(10,6), (9,3), (9,4)],
-        [(10,6), (10,3), (10,4)],
+        [(8,0), (8,1), (8,2), (8,3), (8,5)],
+        [(10,0), (10,1), (10,2), (10,6), (10,6)],
+        [(10,6), (9,3), (9,4), (10,6), (10,6)],
+        [(10,6), (10,3), (10,4), (10,6), (10,6)],
     ]
 
-    castle_object = GameObject(tilemap, castle_map, 750, 400, 250, 150)
+    castle_object = GameObject(tilemap, castle_map, 750, 350, 350, 250)
 
     brunnen_map = [
         [(7,8)],
         [(8,8)],
     ]
 
-    brunnen_object = GameObject(tilemap, brunnen_map, 400, 350, 150, 75)
+    brunnen_object = GameObject(tilemap, brunnen_map, 400, 380, 150, 75)
+
+    sword_map = [
+        [(10,7)]
+    ]
+
+    sword_object = GameObject(tilemap, sword_map, 300, 350, 50, 50)
 
     house_red_rect = house_object.rect
     house_grey_rect = grey_house_object.rect
@@ -105,6 +111,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         grey_house_object.draw(screen)
         castle_object.draw(screen)
         brunnen_object.draw(screen)
+        sword_object.draw(screen)
         player.draw(screen)
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
