@@ -7,7 +7,6 @@ from src.Game_Variables.save_system import load_game
 from src.game.player import Player
 from src.game.pause_screen import pause_screen
 from src.game.sprites import Tilemap
-from pygame import SRCALPHA
 
 def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     GV.init()
@@ -24,19 +23,20 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                       (12, 11), image_rect)
     tilemap = tilemap.load_spritesheet()
     print(tilemap[7][8].get_alpha())
+    quest_text = GV.FONT_MIDDLE.render("Quiz gelöst: /3", True, "black")
     house_map = [
         [(4,0), (4,1), (4,3), (4,2)],
         [(5,0), (5,3), (5,1), (5,2)],
         [(6,0), (7,0), (7,1), (6,3)],
     ]
-    house_object = GameObject(tilemap, house_map, 95,100, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
+    house_object = GameObject(tilemap, house_map, 95,150, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
 
     grey_house_map = [
         [(4, 4), (4, 5), (4, 7), (4, 6)],
         [(5, 4), (5, 7), (5, 5), (5, 6)],
         [(6, 4), (7, 4), (7, 5), (6, 7)],
     ]
-    grey_house_object = GameObject(tilemap, grey_house_map, 475,0, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
+    grey_house_object = GameObject(tilemap, grey_house_map, 450,0, GV.HOUSE_SCALE_H, GV.HOUSE_SCALE_W)
 
     castle_map = [
         [(8,0), (8,1), (8,2), (8,3), (8,5)],
@@ -45,7 +45,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(10,6), (10,3), (10,4), (10,6), (10,6)],
     ]
 
-    castle_object = GameObject(tilemap, castle_map, 750, 350, 350, 250)
+    castle_object = GameObject(tilemap, castle_map, 835,150, 300, 200)
 
     brunnen_map = [
         [(7,8)],
@@ -60,7 +60,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     sword_object = GameObject(tilemap, sword_map, 300, 350, 50, 50)
 
-    house_red_rect = pygame.Rect(110, 100, 220, 95)
+    house_red_rect = pygame.Rect(110, 150, 220, 95)
     house_grey_rect = pygame.Rect(490, 40, 230, 70)
     castle_rect = castle_object.rect
     brunnen_rect = pygame.Rect(405, 430, 65, 100)
@@ -69,19 +69,20 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0), (0,1), (0,2)],
-        [(0,1), (0,2), (3,3), (0,2), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (0,1), (0,2), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,1), (0,2), (3,6), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,1), (0,2), (2,0), (0,0), (0,0), (2,0), (0,0), (0,0), (0,1), (0,2)],
-        [(0,1), (0,2), (2,0), (1,1), (1,1), (3,3), (0,0), (0,0), (0,1), (0,2)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (0,1), (0,2)],
+        [(0,1), (0,2), (2,0), (1,1), (1,1), (3,3), (0,0), (0,0), (3,7), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (3,7), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (3,7), (0,2)],
+        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (3,7), (3,7), (3,7), (0,2)],
         [(0,1), (0,2), (3,0), (3,1), (3,1), (3,2), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
     ]
+
     map_surface = build_map_surface(tilemap, level_map)
     scaled_map = pygame.transform.scale(map_surface, (1080, 720))
     while True:
@@ -145,3 +146,10 @@ def build_map_surface(tilemap, level_map, tile_w=16, tile_h=16):
 
     return map_surface
 # KI-Ende
+
+#def quiz1():
+#    GV.init()
+#    muenze_map = [
+#        [(7,9)]
+#    ]
+#    muenze_objekt = GameObject(muenze_map, )
