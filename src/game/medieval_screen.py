@@ -60,11 +60,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     sword_object = GameObject(tilemap, sword_map, 300, 350, 50, 50)
 
-    house_red_rect = house_object.rect
-    house_grey_rect = grey_house_object.rect
+    house_red_rect = pygame.Rect(110, 100, 220, 95)
+    house_grey_rect = pygame.Rect(490, 40, 230, 70)
     castle_rect = castle_object.rect
-    brunnen_rect = brunnen_object.rect
-
+    brunnen_rect = pygame.Rect(405, 430, 65, 100)
 
     level_map = [
         [(0,0), (0,0), (0,0), (0,0), (0,2), (2,0), (0,0), (0,0), (0,1), (0,2)],
