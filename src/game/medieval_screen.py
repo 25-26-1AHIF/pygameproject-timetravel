@@ -60,6 +60,24 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     sword_object = GameObject(tilemap, sword_map, 300, 350, 50, 50)
 
+    tree1_map = [
+        [(0,3)],
+        [(1,3)]
+    ]
+    tree1_obj = GameObject(tilemap, tree1_map, 850, 0, 100, 50)
+
+    zaun_map = [
+        [(3,8), (6,10), (1,1), (1,1), (6,8), (3,10)],
+        [(4,8), (1,0), (3,3), (3,4), (1,2), (4,10)],
+        [(4,8), (2,0), (2,1), (2,1), (2,2), (4,10)],
+        [(4,8), (2,0), (2,1), (2,1), (2,2), (4,10)],
+        [(4,8), (2,0), (2,1), (2,1), (2,2), (4,10)],
+        [(4,8), (3,0), (3,1), (3,1), (3,2), (4,10)],
+        [(5,8), (3,9), (3,9), (3,9), (3,9), (5,10)]
+    ]
+
+    zaun_obj = GameObject(tilemap, zaun_map, 0, 570, 150, 250)
+
     house_red_rect = pygame.Rect(110, 150, 220, 95)
     house_grey_rect = pygame.Rect(490, 40, 230, 70)
     castle_rect = castle_object.rect
@@ -76,8 +94,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(0,1), (0,2), (2,0), (1,1), (1,1), (3,3), (0,0), (0,0), (3,7), (0,2)],
         [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (3,7), (0,2)],
         [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (0,0), (0,0), (3,7), (0,2)],
-        [(0,1), (0,2), (2,0), (2,1), (2,1), (2,1), (3,7), (3,7), (3,7), (0,2)],
-        [(0,1), (0,2), (3,0), (3,1), (3,1), (3,2), (0,0), (0,0), (0,1), (0,2)],
+        [(0,0), (0,0), (2,0), (2,1), (2,1), (2,1), (3,7), (3,7), (3,7), (0,2)],
+        [(0,0), (0,0), (3,0), (3,1), (3,1), (3,2), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
         [(0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,1), (0,2)],
@@ -112,6 +130,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         castle_object.draw(screen)
         brunnen_object.draw(screen)
         sword_object.draw(screen)
+        tree1_obj.draw(screen)
+        zaun_obj.draw(screen)
         player.draw(screen)
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
