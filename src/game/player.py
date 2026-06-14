@@ -66,7 +66,7 @@ class Player:
         screen.blit(self.image, (self.x, self.y, 67, 122))
        # pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
 
-    def interact(self, interactables):
+    def interact(self, interactables: list):
         for obj in interactables:
             if self.get_rect().colliderect(obj["rect"]):
                 return obj["action"]

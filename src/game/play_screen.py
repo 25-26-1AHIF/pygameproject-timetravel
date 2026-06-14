@@ -16,8 +16,7 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
     pause_bild = pygame.transform.scale(pause_bild, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     player = Player()
     diary = diary_ausfuehren(screen=screen, filepath="assets/Sprites/Diary/Diary.png")
-    medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
-    medieval_icon_rect = medieval_icon.get_rect(center=(diary.medievel_icon_pos))
+    medieval_icon_rect = diary.icon_klein.get_rect(topleft=diary.medievel_icon_pos)
     if load_save:
         load_game(player)
     paused = False
@@ -65,12 +64,8 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
         ]
         obstacles = [table_collision_rect, stairs_rect] + walls
         action = player.interact(interactables)
+        pygame.draw.rect(screen, "red", medieval_icon_rect)
         player.move(obstacles)
-        #print("Player:", player.get_rect())
-        #print("Table:", table_rect)
-        #print("Collide:", player.get_rect().colliderect(table_rect))
-        #pygame.draw.rect(screen, (255, 0, 0), table_rect, 3)
-        #pygame.draw.rect(screen, (255, 0, 0), table_collision_rect, 3)
 
         if action:
             font = pygame.font.SysFont("Georgia", 32)

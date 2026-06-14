@@ -13,6 +13,10 @@ class diary:
         self.xpos_tagebuch = GV.SCREEN_WIDTH/2 - self.width/2
         self.ypos_tagebuch = GV.SCREEN_HEIGHT/2 - self.height/2
         self.medievel_icon_pos = (self.xpos_tagebuch+50, self.ypos_tagebuch+100)
+        medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
+        height_bild = medieval_icon.get_height() / self.scale_factor
+        width_bild = medieval_icon.get_width() / self.scale_factor
+        self.icon_klein = pygame.transform.scale(medieval_icon, (width_bild, height_bild))
 
     def draw(self):
         #KI_Anfang;
@@ -25,8 +29,4 @@ class diary:
         # KI-Ende
         titel_text_tagebuch = self.font_mini.render("Irgendwann im Mittelalter", True, "black")
         self.screen.blit(source=titel_text_tagebuch, dest=(self.xpos_tagebuch + 35,self.ypos_tagebuch + 60))
-        medieval_icon = pygame.image.load("assets/Sprites/Icons/Medieval_Icon.png")
-        height_bild = medieval_icon.get_height()/self.scale_factor
-        width_bild = medieval_icon.get_width() / self.scale_factor
-        icon_klein = pygame.transform.scale(medieval_icon, (width_bild, height_bild))
-        self.screen.blit(source=icon_klein, dest=(self.xpos_tagebuch+50, self.ypos_tagebuch+100))
+        self.screen.blit(source=self.icon_klein, dest=(self.xpos_tagebuch+50, self.ypos_tagebuch+100))

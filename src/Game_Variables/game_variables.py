@@ -31,6 +31,8 @@ class GameScreens:
     EXIT = "exit"
     LADEN = "laden"
     MEDIEVAL = "medieval"
+    G_HOUSE = "g_house"
+    R_HOUSE = "r_house"
     actual = MAIN
 
 class GameObject:
