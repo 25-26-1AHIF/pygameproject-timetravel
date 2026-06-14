@@ -75,4 +75,8 @@
 - großen Bug mit transparenz gelöst
 - Brunnen und Castle automatisiert
 
+### 14.06.2026:
+- Interact mit Häusern gemacht 
+- Funktionen für Screens für diese Funktionen gebaut
+
 ## Furkan Yildiz:
