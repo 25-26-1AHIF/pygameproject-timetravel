@@ -6,6 +6,7 @@ from game.main_screen import main_screen
 from game.medieval_screen import medieval_screen
 from game.grey_house import grey_house
 from game.red_house import red_house
+from game.castle import castle
 
 def main():
     GV.init()
@@ -25,6 +26,8 @@ def main():
             GameScreens.actual = grey_house(screen, clock)
         elif GameScreens.actual == GameScreens.R_HOUSE:
             GameScreens.actual = red_house(screen, clock)
+        elif GameScreens.actual == GameScreens.CASTLE:
+            GameScreens.actual = castle(screen, clock)
     pygame.quit()
 
 if __name__ == "__main__":

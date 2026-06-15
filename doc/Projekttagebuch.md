@@ -79,4 +79,7 @@
 - Interact mit Häusern gemacht 
 - Funktionen für Screens für diese Funktionen gebaut
 
+### 15.06.2026:
+- Grundsturktur für Häuser gelegt
+
 ## Furkan Yildiz:

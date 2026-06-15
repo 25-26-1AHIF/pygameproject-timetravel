@@ -33,6 +33,7 @@ class GameScreens:
     MEDIEVAL = "medieval"
     G_HOUSE = "g_house"
     R_HOUSE = "r_house"
+    CASTLE = "castle"
     actual = MAIN
 
 class GameObject:

@@ -33,7 +33,7 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
             if event.type == pygame.QUIT:
                 return None
             if event.type == pygame.KEYDOWN:
-                if action == "diary" and event.key == pygame.K_e:
+                if action and event.key == pygame.K_e:
                     diary_open = not diary_open
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused

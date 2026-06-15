@@ -21,7 +21,6 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     tilemap = Tilemap("assets/Sprites/Town (medieval)/Tilemap/tilemap_packed.png",
                       (12, 11), image_rect)
     tilemap = tilemap.load_spritesheet()
-    print(tilemap[7][8].get_alpha())
     house_map = [
         [(4,0), (4,1), (4,3), (4,2)],
         [(5,0), (5,3), (5,1), (5,2)],
@@ -44,8 +43,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         [(10,6), (9,3), (9,4), (10,6), (10,6)],
         [(10,6), (10,3), (10,4), (10,6), (10,6)],
     ]
-
     castle_object = GameObject(tilemap, castle_map, 835,150, 300, 200)
+    castle_door = pygame.Rect(880, 325, 60, 120)
 
     brunnen_map = [
         [(7,8)],
@@ -85,10 +84,11 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
 
     map_surface = build_map_surface(tilemap, level_map)
-    scaled_map = pygame.transform.scale(map_surface, (1080, 720))
+    scaled_map = pygame.transform.scale(map_surface, (GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
     interactables = [
         {"rect": grey_house_door, "action": "g_house"},
-        {"rect": red_house_door, "action": "r_house"}
+        {"rect": red_house_door, "action": "r_house"},
+        {"rect": castle_door, "action": "castle"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
@@ -111,6 +111,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                         return GameScreens.G_HOUSE
                     if action == "r_house":
                         return GameScreens.R_HOUSE
+                    if action == "castle":
+                        return GameScreens.CASTLE
         if paused:
             pause_screen(screen,save_message_timer,pause_bild)
             if save_message_timer > 0:
