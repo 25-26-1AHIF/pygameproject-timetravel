@@ -24,7 +24,7 @@ def main():
         elif GameScreens.actual == GameScreens.G_HOUSE:
             GameScreens.actual = grey_house(screen, clock)
         elif GameScreens.actual == GameScreens.R_HOUSE:
-            GameScreens.a = red_house(screen, clock)
+            GameScreens.actual = red_house(screen, clock)
     pygame.quit()
 
 if __name__ == "__main__":
