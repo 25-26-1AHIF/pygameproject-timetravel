@@ -82,4 +82,16 @@
 ### 15.06.2026:
 - Grundsturktur für Häuser gelegt
 
+### 17.06.2026:
+- Rotes Haus final ausgebaut
+- Kerze als erstes Quest-Objekt platziert
+- Bilder/Avatare für die Quest-Objekte platziert
+- Player.move() so angepasst, dass er nicht über den Rand raus rennen kann
+- Vom roten Haus wieder zurück zum Medieval Screen gebaut
+- inventory.json erstellt, um das Quest-Inventar zu speichern
+- Quest Gegenstände speichern und beim Neustart des Spiels die Liste löschen
+- Kerze_bunt.png & Kerze_schwarz_weiß.png erstellt
+- Neues UI-Pack hinzugefügt altes entfernt
+- Projekttagebuch überarbeitet
+
 ## Furkan Yildiz:

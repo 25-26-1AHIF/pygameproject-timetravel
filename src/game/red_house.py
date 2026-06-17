@@ -1,4 +1,5 @@
 import pygame
+import json
 from pygame import SRCALPHA
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
@@ -20,8 +21,7 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
             parkett_boden.blit(parkett, (x*32, y*32))
 
     parkett_boden_scaled = pygame.transform.scale(parkett_boden, (GV.SCREEN_WIDTH-300, GV.SCREEN_HEIGHT-300))
-
-    player = Player(GV.SCREEN_WIDTH//2, 600)
+    player = Player(GV.SCREEN_WIDTH//2 - GV.PLAYER_WIDTH//2, 600)
     save_message_timer = 0
     if load_save:
         load_game(player)
@@ -47,7 +47,7 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         [(3, 26), (2, 23), (3, 24), (3, 24), (3, 24), (3, 24), (3, 24), (1, 7), (1, 7), (3, 24), (3, 24), (3, 24),(3, 24), (3, 24), (2, 25), (3, 26)],
     ]
     wand_obj = GameObject(tilemap, wand_oben, GV.SCREEN_WIDTH//2 - (GV.SCREEN_WIDTH-300) // 2,75, 125, GV.SCREEN_WIDTH-300)
-    wand_rect = wand_obj.rect
+    wand_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - (GV.SCREEN_WIDTH-300) // 2,75, GV.SCREEN_WIDTH-300, 75)
 
     wand_rechts = [
         [(3, 26)],
@@ -117,6 +117,30 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
     ]
     portrait_obj = GameObject(tilemap, portrait_map, 300, 100, 100, 50)
 
+    kerze_map = [
+        [(7,17)]
+    ]
+    kerze_obj = GameObject(tilemap, kerze_map, GV.SCREEN_WIDTH//2 - 25, 160, 50, 50)
+    kerze_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 30, 160, 60, 60)
+
+    ausgang_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 75, GV.SCREEN_HEIGHT-75, 150, 75)
+
+    interactables = [
+        {"rect": kerze_rect, "action": "kerze"},
+        {"rect":ausgang_rect, "action": "ausgang"}
+    ]
+    font = pygame.font.SysFont("Georgia", 32)
+    text = font.render("Press E to interact", True, (255, 255, 255))
+    kerze = True
+    path = "Game_Variables/inventory.json"
+    try:
+        with open(path, "r") as fp:
+            data = json.load(fp)
+    except json.JSONDecodeError:
+        data = {"inventory": []}
+        with open(path, "w") as fp:
+            json.dump(data, fp, indent=4)
+    kerze = "kerze" not in data["inventory"]
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -131,6 +155,15 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
                     return GameScreens.MAIN
                 if paused and event.key == pygame.K_q:
                     return None
+                if event.key == pygame.K_e:
+                    if action == "kerze":
+                        if "kerze" not in data["inventory"]:
+                            data["inventory"].append("kerze")
+                            with open(path, "w") as fp:
+                                json.dump(data, fp, indent=4)
+                        kerze = False
+                    if action == "ausgang":
+                        return GameScreens.MEDIEVAL
         if paused:
             pause_screen(screen,save_message_timer,pause_bild)
             if save_message_timer > 0:
@@ -140,11 +173,9 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         screen.fill("black")
         screen.blit(parkett_boden_scaled, (GV.SCREEN_WIDTH//2 - (GV.SCREEN_WIDTH-300) // 2, GV.SCREEN_HEIGHT//2 - (GV.SCREEN_HEIGHT-300) // 2))
         obstacles = [wand_rect, wand_rechts_rect, wand_links_rect, wand_unten_links_rect, wand_unten_rechts_rect]
-        player.draw(screen,)
         wand_obj.draw(screen)
         wand_links_obj.draw(screen)
         wand_rechts_obj.draw(screen)
-        wand_unten_obj.draw(screen)
         bett_obj.draw(screen)
         tisch_obj.draw(screen)
         wand_teppich_onj.draw(screen)
@@ -155,6 +186,29 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         ess_tisch_obj.draw(screen)
         stuhl_obj3.draw(screen)
         portrait_obj.draw(screen)
+        # KI-Anfang
+        # benutzte KI: Microsoft Copilot
+        # URL: https://copilot.microsoft.com
+        # Prompt: Das Problem: 1.
+        # Es printet solange das data da rein, bis ich raus bin aus dem Haus.
+        # Deswegen muss ich überprüfen, ob "kerze" schon drin ist. Das brauch ich auch für mein zweites Problem,
+        # und zwar dass wenn ich aus dem Haus rausgeh und wieder rein geh, die Kerze nicht wieder gezeichnet wird,
+        # benfalls mit dem Auslesen der Datei
+
+        # Code ist auf der Ganzen Seite verteilt, Datei auslesen mit Json usw...
+
+        # KI-Ende
+
+        if kerze:
+            kerze_obj.draw(screen)
+
+        player.draw(screen)
+        action = player.interact(interactables)
+        if action == "ausgang":
+            screen.blit(text, (player.x - 150, player.y))
+        elif action == "kerze":
+            screen.blit(text, (player.x - 150, player.y - 40))
+        wand_unten_obj.draw(screen)
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)

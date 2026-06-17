@@ -1,4 +1,7 @@
+from fileinput import close
+
 import pygame
+import json
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
 from src.Game_Variables.game_variables import GameObject
@@ -12,6 +15,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     GV.init()
     pygame.display.set_caption("Medieval_Screen")
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
+    kerze_bild_sw = pygame.image.load("assets/Bilder/Kerze_schwarz_weiß.png").convert_alpha()
+    kerze_bild_bunt = pygame.image.load("assets/Bilder/Kerze_bunt.png").convert_alpha()
+    kerze_bild_sw = pygame.transform.scale(kerze_bild_sw, (100, 100))
+    kerze_bild_bunt = pygame.transform.scale(kerze_bild_bunt, (100, 100))
     player = Player()
     save_message_timer = 0
     if load_save:
@@ -92,6 +99,14 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
+
+    path_inventory = "Game_Variables/inventory.json"
+    try:
+        with open(path_inventory, "r") as fp:
+            data = json.load(fp)
+    except:
+        pass
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -127,7 +142,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         brunnen_object.draw(screen)
         tree1_obj.draw(screen)
         player.draw(screen)
-        quest_text = GV.FONT_MIDDLE.render("Artefakte gefunden: /3", True, "black")
+        if "kerze" in data["inventory"]:
+            screen.blit(kerze_bild_bunt, (0,0))
+        else:
+            screen.blit(kerze_bild_sw, (0,0))
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
         wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
