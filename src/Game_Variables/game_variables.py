@@ -6,6 +6,8 @@ class GameVariables:
     SCREEN_HEIGHT = 720
     SQUARE_SIZE = 156
     FPS = 60
+    PLAYER_WIDTH = 67
+    PLAYER_HEIGHT = 122
 
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None

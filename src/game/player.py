@@ -2,9 +2,9 @@ import pygame
 from src.Game_Variables.game_variables import GameVariables as GV
 class Player:
 
-    def __init__(self):
-        self.x = 200
-        self.y = 400
+    def __init__(self, x=200, y=400):
+        self.x = x
+        self.y = y
         self.speed = 15
         self.direction = "down"
 
@@ -12,7 +12,7 @@ class Player:
 
         sheet = pygame.transform.scale(sheet, (512, 512))
 
-        self.down = sheet.subsurface((56, 40, 67, 122))
+        self.down = sheet.subsurface((56, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT))
         self.left = sheet.subsurface((56, 190, 67, 122))
         self.up = sheet.subsurface((56, 340, 67, 122))
         self.right = pygame.transform.flip(self.left, True, False)
@@ -26,17 +26,33 @@ class Player:
         dy = 0
 
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            dx = -self.speed
-            self.direction = "left"
+            new_pos = self.x - self.speed
+            if new_pos >= 0:
+                dx = -self.speed
+                self.direction = "left"
+            else:
+                dx = 0
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            dx = self.speed
-            self.direction = "right"
+            new_pos = self.x + self.speed
+            if new_pos <= GV.SCREEN_WIDTH - GV.PLAYER_WIDTH:
+                dx = self.speed
+                self.direction = "right"
+            else:
+                dx = 0
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            dy = -self.speed
-            self.direction = "up"
+            new_pos = self.y - self.speed
+            if new_pos >= 0:
+                dy = -self.speed
+                self.direction = "up"
+            else:
+                dy = 0
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            dy = self.speed
-            self.direction = "down"
+            new_pos = self.y + self.speed
+            if new_pos <= GV.SCREEN_HEIGHT-GV.PLAYER_WIDTH - GV.PLAYER_WIDTH:
+                dy = self.speed
+                self.direction = "down"
+            else:
+                dy = 0
 
         new_rect = self.get_rect().move(dx, dy)
 
