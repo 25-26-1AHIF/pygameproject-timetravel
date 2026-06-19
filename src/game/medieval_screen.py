@@ -105,6 +105,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
+    text_candle = font.render("Collect candle first brudi", True, (255, 255, 255))
 
     path_inventory = "Game_Variables/inventory.json"
     try:
@@ -162,7 +163,13 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                      wand_rechts, wand_oben, wand_unten]
         action = player.interact(interactables)
         if action:
-            screen.blit(text, (player.x - 150, player.y - 40))
+            if player.interact([{"rect": portal_medieval_pos, "action": "portal"}]):
+                if "kerze" not in Player.inventory["inventory"]:
+                    screen.blit(text_candle, (player.x - 150, player.y - 40))
+                else:
+                    screen.blit(text, (player.x - 150, player.y - 40))
+            else:
+                screen.blit(text, (player.x - 150, player.y - 40))
         player.move(obstacles=obstacles)
         #pygame.draw.rect(screen, (255, 0, 0), player.get_rect(), 2)
         #for it in interactables:

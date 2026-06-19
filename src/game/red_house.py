@@ -172,10 +172,11 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
                     return None
                 if event.key == pygame.K_e:
                     if action == "kerze":
-                        if "kerze" not in data["inventory"]:
-                            data["inventory"].append("kerze")
+                        if "kerze" not in Player.inventory["inventory"]:
+                            Player.inventory["inventory"].append("kerze")
                             with open(path, "w") as fp:
                                 json.dump(data, fp, indent=4)
+                            Player.inventory["inventory"].append("kerze")
                         kerze = False
                     if action == "ausgang":
                         return GameScreens.MEDIEVAL
