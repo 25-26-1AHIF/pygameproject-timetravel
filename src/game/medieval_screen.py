@@ -105,7 +105,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
-    text_candle = font.render("Collect candle first brudi", True, (255, 255, 255))
+    text_candle = font.render("Collect candle first brudi", True, (255, 0, 0))
 
     path_inventory = "Game_Variables/inventory.json"
     try:

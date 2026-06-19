@@ -7,17 +7,45 @@ class Player:
         self.y = y
         self.speed = 10
         self.direction = "down"
+        self.frame_index = 0
+        self.anim_timer = 0
 
         sheet = pygame.image.load("assets/Sprites/Characters/Male person/Player.TopDown.png").convert_alpha()
 
         sheet = pygame.transform.scale(sheet, (512, 512))
 
-        self.down = sheet.subsurface((56, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT))
-        self.left = sheet.subsurface((56, 190, 67, 122))
-        self.up = sheet.subsurface((56, 340, 67, 122))
-        self.right = pygame.transform.flip(self.left, True, False)
+        self.down = [
+            sheet.subsurface((56, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((165, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((273, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((381, 40, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT))
+        ]
 
-        self.image = self.down
+        self.left = [
+            sheet.subsurface((56, 190, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((165, 190, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((273, 190, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((381, 190, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT))
+        ]
+
+        self.up = [
+            sheet.subsurface((56, 340, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((165, 340, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((273, 340, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT)),
+            sheet.subsurface((381, 340, GV.PLAYER_WIDTH, GV.PLAYER_HEIGHT))
+        ]
+
+        self.right = [
+            pygame.transform.flip(self.left[0], True, False),
+            pygame.transform.flip(self.left[1], True, False),
+            pygame.transform.flip(self.left[2], True, False),
+            pygame.transform.flip(self.left[3], True, False),
+        ]
+
+        self.image = self.down[0]
+        self.image = self.left[0]
+        self.image = self.up[0]
+
 
 
     def move(self, obstacles):
@@ -67,14 +95,24 @@ class Player:
             self.x += dx
             self.y += dy
 
+
+        moving = (dx != 0 or dy != 0)
+        if moving:
+            self.anim_timer += 1
+            if self.anim_timer >= 8:
+                self.anim_timer = 0
+                self.frame_index = (self.frame_index + 1) % 4
+        else:
+            self.frame_index = 0
+
         if self.direction == "left":
-            self.image = self.left
+            self.image = self.left[self.frame_index]
         elif self.direction == "right":
-            self.image = self.right
+            self.image = self.right[self.frame_index]
         elif self.direction == "up":
-            self.image = self.up
+            self.image = self.up[self.frame_index]
         elif self.direction == "down":
-            self.image = self.down
+            self.image = self.down[self.frame_index]
 
     def get_rect(self) -> pygame.Rect:
         return pygame.Rect(self.x, self.y, 67, 122)
