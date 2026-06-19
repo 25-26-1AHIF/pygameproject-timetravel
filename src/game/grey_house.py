@@ -20,7 +20,6 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     for x in range(10):
         for y in range(10):
             parkett_boden.blit(parkett, (x * 32, y * 32))
-
     parkett_boden_scaled = pygame.transform.scale(parkett_boden, (GV.SCREEN_WIDTH - 300, GV.SCREEN_HEIGHT - 300))
     player = Player(GV.SCREEN_WIDTH // 2 - GV.PLAYER_WIDTH // 2, 600)
     save_message_timer = 0
@@ -31,6 +30,14 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     tilemap = Tilemap("assets/Sprites/Indoor/Tilesheets/roguelikeIndoor_transparent.png",
                       (27, 18), image_rect)
     tilemap = tilemap.load_spritesheet()
+
+    chest_closed = pygame.image.load("assets/Bilder/Chest_closed.png").convert_alpha()
+    chest_closed = pygame.transform.scale(chest_closed, (100,100))
+    chest_closed_rect = pygame.Rect(750, 150, 150, 150)
+
+    chest_open = pygame.image.load("assets/Bilder/Chest_open.png").convert_alpha()
+    chest_open = pygame.transform.scale(chest_open, (500, 500))
+    chest_open_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 250, GV.SCREEN_HEIGHT//2 - 250, 500, 500)
 
     wand_oben = [
         [(4, 26), (5, 23), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24),
@@ -62,6 +69,15 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     wand_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 - (GV.SCREEN_WIDTH - 300) // 2, 75, GV.SCREEN_WIDTH - 300, 75)
 
     wand_rechts = [
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
+        [(4, 26)],
         [(4, 26)],
         [(4, 26)],
         [(4, 26)],
@@ -108,7 +124,6 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
         [(10, 5)],
         [(11, 5)],
     ]
-
     ess_tisch_obj = GameObject(tilemap, ess_tisch_map, GV.SCREEN_WIDTH // 2 + (GV.SCREEN_WIDTH - 300) // 2 - 150, 300,
                                100, 50)
 
@@ -129,6 +144,8 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     stuhl_obj3 = GameObject(tilemap, stuhl_map2, GV.SCREEN_WIDTH // 2 + (GV.SCREEN_WIDTH - 300) // 2 - 150, 380, 50, 50)
     stuhl_obj4 = GameObject(tilemap, stuhl_map3, GV.SCREEN_WIDTH // 2 + (GV.SCREEN_WIDTH - 300) // 2 - 150, 280, 50, 50)
 
+    ess_ecke_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 + (GV.SCREEN_WIDTH - 300) // 2 - 180, 310, 150, 90)
+
     portrait_map = [
         [(15, 20)],
         [(16, 20)]
@@ -138,10 +155,12 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     ausgang_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 - 75, GV.SCREEN_HEIGHT - 75, 150, 75)
 
     interactables = [
-        {"rect": ausgang_rect, "action": "ausgang"}
+        {"rect": ausgang_rect, "action": "ausgang"},
+        {"rect": chest_closed_rect, "action": "chest_open"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
+    chest = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -159,6 +178,8 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
                 if event.key == pygame.K_e:
                     if action == "ausgang":
                         return GameScreens.MEDIEVAL
+                    if action == "chest_open":
+                        chest = not chest
         if paused:
             pause_screen(screen, save_message_timer, pause_bild)
             if save_message_timer > 0:
@@ -168,7 +189,8 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
         screen.fill("black")
         screen.blit(parkett_boden_scaled, (GV.SCREEN_WIDTH // 2 - (GV.SCREEN_WIDTH - 300) // 2,
                                            GV.SCREEN_HEIGHT // 2 - (GV.SCREEN_HEIGHT - 300) // 2))
-        obstacles = [wand_rect, wand_rechts_rect, wand_links_rect, wand_unten_links_rect, wand_unten_rechts_rect]
+        obstacles = [wand_rect, wand_rechts_rect, wand_links_rect, wand_unten_links_rect, wand_unten_rechts_rect, ess_ecke_rect]
+        pygame.draw.rect(screen, "red", ess_ecke_rect, 2)
         wand_obj.draw(screen)
         wand_links_obj.draw(screen)
         wand_rechts_obj.draw(screen)
@@ -182,11 +204,17 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
         ess_tisch_obj.draw(screen)
         stuhl_obj3.draw(screen)
         portrait_obj.draw(screen)
+        if not chest:
+            screen.blit(chest_closed, chest_closed_rect)
         player.draw(screen)
         action = player.interact(interactables)
         if action == "ausgang":
             screen.blit(text, (player.x - 150, player.y))
+        if action == "chest_open":
+            screen.blit(text, (player.x - 150, player.y))
         wand_unten_obj.draw(screen)
+        if chest:
+            screen.blit(chest_open, chest_open_rect)
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)

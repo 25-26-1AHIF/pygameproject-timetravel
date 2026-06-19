@@ -56,6 +56,20 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         [(3, 26)],
         [(3, 26)],
         [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)],
+        [(3, 26)]
     ]
     wand_rechts_obj = GameObject(tilemap, wand_rechts, GV.SCREEN_WIDTH//2 + (GV.SCREEN_WIDTH-300) // 2 - 50,200, GV.SCREEN_HEIGHT-350, 50)
     wand_rechts_rect = wand_rechts_obj.rect
