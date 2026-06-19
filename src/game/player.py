@@ -5,7 +5,7 @@ class Player:
     def __init__(self, x=200, y=400):
         self.x = x
         self.y = y
-        self.speed = 15
+        self.speed = 10
         self.direction = "down"
 
         sheet = pygame.image.load("assets/Sprites/Characters/Male person/Player.TopDown.png").convert_alpha()
@@ -80,9 +80,9 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y, 67, 122))
-       # pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
+       #        pygame.draw.rect(screen, pygame.Color("black"), (self.x, self.y, 67, 122), width=1)
 
-    def interact(self, interactables: list):
+    def interact(self, interactables):
         for obj in interactables:
             if self.get_rect().colliderect(obj["rect"]):
                 return obj["action"]

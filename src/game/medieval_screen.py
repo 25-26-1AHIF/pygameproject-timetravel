@@ -19,6 +19,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     kerze_bild_bunt = pygame.image.load("assets/Bilder/Kerze_bunt.png").convert_alpha()
     kerze_bild_sw = pygame.transform.scale(kerze_bild_sw, (100, 100))
     kerze_bild_bunt = pygame.transform.scale(kerze_bild_bunt, (100, 100))
+    portal_bild = pygame.image.load("assets/Bilder/Portal_medieval.png").convert_alpha()
+    portal_bild = pygame.transform.scale(portal_bild, (200, 200))
     player = Player()
     save_message_timer = 0
     if load_save:
@@ -52,6 +54,9 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
     castle_object = GameObject(tilemap, castle_map, 835,150, 300, 200)
     castle_door = pygame.Rect(880, 325, 60, 120)
+
+    portal_medieval_pos = (900, 500, 170, 170)
+    portal_rect = pygame.Rect(portal_medieval_pos[0], portal_medieval_pos[1], 80, 100)
 
     brunnen_map = [
         [(7,8)],
@@ -95,7 +100,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     interactables = [
         {"rect": grey_house_door, "action": "g_house"},
         {"rect": red_house_door, "action": "r_house"},
-        {"rect": castle_door, "action": "castle"}
+        {"rect": castle_door, "action": "castle"},
+        {"rect": portal_medieval_pos, "action": "portal"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
@@ -141,6 +147,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         castle_object.draw(screen)
         brunnen_object.draw(screen)
         tree1_obj.draw(screen)
+        screen.blit(portal_bild, portal_medieval_pos)
         player.draw(screen)
         if "kerze" in data["inventory"]:
             screen.blit(kerze_bild_bunt, (0,0))
@@ -157,6 +164,11 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         if action:
             screen.blit(text, (player.x - 150, player.y - 40))
         player.move(obstacles=obstacles)
+        pygame.draw.rect(screen, (255, 0, 0), player.get_rect(), 2)
+        for it in interactables:
+            pygame.draw.rect(screen, (0, 255, 0), it["rect"], 2)  # E-Objekte (grün)
+        for ob in obstacles:
+            pygame.draw.rect(screen, (0, 0, 255), ob, 2)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
