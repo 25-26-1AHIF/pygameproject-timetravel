@@ -64,7 +64,6 @@ def play_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=Fals
         ]
         obstacles = [table_collision_rect, stairs_rect] + walls
         action = player.interact(interactables)
-        pygame.draw.rect(screen, "red", medieval_icon_rect)
         player.move(obstacles)
 
         if action:

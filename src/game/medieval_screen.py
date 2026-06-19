@@ -164,11 +164,11 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         if action:
             screen.blit(text, (player.x - 150, player.y - 40))
         player.move(obstacles=obstacles)
-        pygame.draw.rect(screen, (255, 0, 0), player.get_rect(), 2)
-        for it in interactables:
-            pygame.draw.rect(screen, (0, 255, 0), it["rect"], 2)  # E-Objekte (grün)
-        for ob in obstacles:
-            pygame.draw.rect(screen, (0, 0, 255), ob, 2)
+        #pygame.draw.rect(screen, (255, 0, 0), player.get_rect(), 2)
+        #for it in interactables:
+        #    pygame.draw.rect(screen, (0, 255, 0), it["rect"], 2)  # E-Objekte (grün)
+        #for ob in obstacles:
+        #    pygame.draw.rect(screen, (0, 0, 255), ob, 2)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()

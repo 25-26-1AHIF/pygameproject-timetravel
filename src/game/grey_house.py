@@ -1,5 +1,4 @@
 import pygame
-import json
 from pygame import SRCALPHA
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
@@ -9,7 +8,6 @@ from src.Game_Variables.save_system import load_game
 from src.game.player import Player
 from src.game.pause_screen import pause_screen
 from src.game.sprites import Tilemap
-
 
 def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     GV.init()
@@ -146,6 +144,13 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
 
     ess_ecke_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 + (GV.SCREEN_WIDTH - 300) // 2 - 180, 310, 150, 90)
 
+    shield_map = [
+        [(10,22)]
+    ]
+
+    shield_obj = GameObject(tilemap, shield_map, GV.SCREEN_WIDTH//2 - 50, GV.SCREEN_HEIGHT//2 - 75, 100, 100)
+    shield_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 25, GV.SCREEN_HEIGHT//2 - 75, 50, 75)
+
     portrait_map = [
         [(15, 20)],
         [(16, 20)]
@@ -161,6 +166,7 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
     chest = False
+    shield = True
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -180,6 +186,9 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
                         return GameScreens.MEDIEVAL
                     if action == "chest_open":
                         chest = not chest
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if shield_rect.collidepoint(event.pos):
+                    shield = False
         if paused:
             pause_screen(screen, save_message_timer, pause_bild)
             if save_message_timer > 0:
@@ -190,7 +199,6 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
         screen.blit(parkett_boden_scaled, (GV.SCREEN_WIDTH // 2 - (GV.SCREEN_WIDTH - 300) // 2,
                                            GV.SCREEN_HEIGHT // 2 - (GV.SCREEN_HEIGHT - 300) // 2))
         obstacles = [wand_rect, wand_rechts_rect, wand_links_rect, wand_unten_links_rect, wand_unten_rechts_rect, ess_ecke_rect]
-        pygame.draw.rect(screen, "red", ess_ecke_rect, 2)
         wand_obj.draw(screen)
         wand_links_obj.draw(screen)
         wand_rechts_obj.draw(screen)
@@ -215,6 +223,8 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
         wand_unten_obj.draw(screen)
         if chest:
             screen.blit(chest_open, chest_open_rect)
+            if shield:
+                shield_obj.draw(screen)
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)
