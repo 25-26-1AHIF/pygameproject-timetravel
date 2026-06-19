@@ -141,6 +141,7 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         with open(path, "w") as fp:
             json.dump(data, fp, indent=4)
     kerze = "kerze" not in data["inventory"]
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
