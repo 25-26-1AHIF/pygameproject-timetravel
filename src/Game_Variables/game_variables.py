@@ -13,6 +13,10 @@ class GameVariables:
         "inventory": []
     }
 
+    GOT_IT = False
+
+    GOT_ALL_ITEMS = False
+
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None
     FONT_SMALL: pygame.font.Font = None

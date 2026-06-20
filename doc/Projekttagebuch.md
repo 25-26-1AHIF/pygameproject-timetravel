@@ -109,5 +109,7 @@
 - Portal_Text so umgeändert, dass falls der Player noch nicht alle eingesammelt hat, der Text:
 - "Collect Quest-Objects first Brudi" aufploppt
 - Wenn Player die Objekte hat, kann er ins Portal
+- Ein Welcome-Text in die Medieval Map eingebaut
+- Dafür GOT_ALL_ITEMS in GameVariables eingebaut damit es leichter ist
 
 ## Furkan Yildiz:

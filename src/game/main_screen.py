@@ -9,10 +9,10 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     subtitle_font = pygame.font.SysFont("Georgia",28)
     button_font = pygame.font.SysFont("Georgia",38)
     title_text = title_font.render("TimeTravel",True,(245, 230, 200))
-    subtitle_text = subtitle_font.render("Was für ein Geheimnis kann ein Tagebuch beherbergen?",True,(235, 220, 190))
-    new_game_text = button_font.render("Neues Spiel",True,(255, 240, 210))
-    load_text = button_font.render("Spielstand laden",True,(255, 240, 210))
-    quit_text = button_font.render("Beenden",True,(255, 240, 210))
+    subtitle_text = subtitle_font.render("What kind of secret can a diary hold?",True,(235, 220, 190))
+    new_game_text = button_font.render("New Game",True,(255, 240, 210))
+    load_text = button_font.render("Load Game",True,(255, 240, 210))
+    quit_text = button_font.render("Quit",True,(255, 240, 210))
     title_rect = title_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 120))
     subtitle_rect = subtitle_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 180))
     new_game_rect = new_game_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 380))
@@ -45,9 +45,9 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
         screen.blit(subtitle_text, subtitle_rect)
 
         buttons = [
-            ("Neues Spiel", new_game_rect),
-            ("Spielstand laden", load_rect),
-            ("Beenden", quit_rect)]
+            ("New Game", new_game_rect),
+            ("Load Game", load_rect),
+            ("Quit", quit_rect)]
         for text, rect in buttons:
             hover = rect.collidepoint(mouse_pos)
             color = (

@@ -31,6 +31,30 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     tilemap = Tilemap("assets/Sprites/Town (medieval)/Tilemap/tilemap_packed.png",
                       (12, 11), image_rect)
     tilemap = tilemap.load_spritesheet()
+
+    image_ui_rect = pygame.Rect(0,0, 33, 33)
+    tilemap_ui = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Large tiles/Thin outline/tilemap.png", (13,7), image_ui_rect)
+    tilemap_ui = tilemap_ui.load_spritesheet()
+
+    image_ui_small_rect = pygame.Rect(0,0,17,17)
+    tilemap_ui_small = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Small tiles/Thin outline/tilemap.png", (23,7), image_ui_small_rect)
+    tilemap_ui_small = tilemap_ui_small.load_spritesheet()
+
+    text_hintergrund_map = [
+        [(1,5)]
+    ]
+    text_hintergrund_obj = GameObject(tilemap_ui, text_hintergrund_map, GV.SCREEN_WIDTH/2 - 250, GV.SCREEN_HEIGHT/2 - 300, 300, 500, 33, 32)
+
+    banner_welcome_map = [
+        [(4,4),(4,5),(4,6)]
+    ]
+    banner_welcome_obj = GameObject(tilemap_ui, banner_welcome_map,  GV.SCREEN_WIDTH/2 - 175, GV.SCREEN_HEIGHT/2 - 100, 150, 350, 32, 32)
+
+    button_map = [
+        [(2,3)]
+    ]
+    button_obj = GameObject(tilemap_ui_small, button_map, GV.SCREEN_WIDTH/2 - 70, GV.SCREEN_HEIGHT/2 - 10, 75, 130, 16, 16)
+
     house_map = [
         [(4,0), (4,1), (4,3), (4,2)],
         [(5,0), (5,3), (5,1), (5,2)],
@@ -101,15 +125,18 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     interactables = [
         {"rect": grey_house_door, "action": "g_house"},
         {"rect": red_house_door, "action": "r_house"},
-        {"rect": castle_door, "action": "castle"},
+        #{"rect": castle_door, "action": "castle"},
         {"rect": portal_medieval_pos, "action": "portal"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
+    font_mini = pygame.font.SysFont("Georgia", 18)
+    text_welcome = font_mini.render("Collect all 3 Objects shown ", True, "black")
+    text_welcome2 = font_mini.render("Top-Left to go back to the present!", True, "black")
+    got_it_text = font_mini.render("Got it!", True, "black")
 
     kerze_in_inventory = False
     shield_in_inventory = False
-    missing_inventory = []
 
     for x in GV.PLAYER_INVENTORY["inventory"]:
         print(x)
@@ -119,6 +146,18 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             shield_in_inventory = True
 
     text_quiz_object_not_collected = font.render(f"Collect Quest-Objects first Brudi", True, (255, 0, 0))
+
+    input_text = ""
+    input_active = False
+    font = pygame.font.Font(None, 40)
+    frame_x = 400
+    frame_y = 250
+    frame_w = 400
+    frame_h = 50
+
+    text_surface = font.render(input_text, True, (255, 255, 255))
+
+    got_it_rect = pygame.Rect((GV.SCREEN_WIDTH/2 - 70, GV.SCREEN_HEIGHT/2 - 10, 75, 130))
 
     while True:
         for event in pygame.event.get():
@@ -139,8 +178,30 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                         return GameScreens.G_HOUSE
                     if action == "r_house":
                         return GameScreens.R_HOUSE
-                    if action == "castle":
-                        return GameScreens.CASTLE
+                    if action == "portal" and GV.GOT_ALL_ITEMS:
+                        return GameScreens.PLAY
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if got_it_rect.collidepoint(event.pos):
+                    GV.GOT_IT = True
+
+            # KI-Anfang:
+            # benutzte KI: Microsoft Copilot
+            # URL: https://copilot.microsoft.com
+            # Prompt: Wie kann ich nochmal eine Player Eingabe auf dem Screen machen?
+            if event.type == pygame.KEYDOWN and input_active:
+                if event.key == pygame.K_RETURN:
+                    print("Spieler hat eingegeben:", input_text)
+                    input_text = ""  # oder Eingabe beenden
+                elif event.key == pygame.K_BACKSPACE:
+                    input_text = input_text[:-1]
+                else:
+                    input_text += event.unicode
+                # Textbreite prüfen
+                text_surface = font.render(input_text, True, (255, 255, 255))
+                while text_surface.get_width() > frame_w - 20:  # 20 = Padding
+                    input_text = input_text[1:]  # vorne Zeichen entfernen
+                    text_surface = font.render(input_text, True, (255, 255, 255))
+            # KI-Ende
         if paused:
             pause_screen(screen,save_message_timer,pause_bild)
             if save_message_timer > 0:
@@ -149,6 +210,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             continue
         screen.fill("black")
         screen.blit(scaled_map, (0, 0))
+        #pygame.draw.rect(screen, (255, 255, 255), (frame_x, frame_y, frame_w, frame_h), 2)
+        #screen.blit(text_surface, (frame_x + 10, frame_y + 10))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)
@@ -156,6 +219,14 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         tree1_obj.draw(screen)
         screen.blit(portal_bild, portal_medieval_pos)
         player.draw(screen)
+        #text_hintergrund_obj.draw(screen)
+        if not GV.GOT_IT:
+            banner_welcome_obj.draw(screen)
+            screen.blit(text_welcome, (GV.SCREEN_WIDTH/2 - 100, GV.SCREEN_HEIGHT/2-50))
+            screen.blit(text_welcome2, ((GV.SCREEN_WIDTH/2 - 140, GV.SCREEN_HEIGHT/2-30)))
+            button_obj.draw(screen)
+            screen.blit(got_it_text, (GV.SCREEN_WIDTH/2-30, GV.SCREEN_HEIGHT/2+15))
+
         if kerze_in_inventory:
             screen.blit(kerze_bild_bunt, (0,0))
         else:
@@ -165,6 +236,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             screen.blit(shield_image_bunt, (90, 0))
         else:
             screen.blit(shield_image_sw, (90, 0))
+
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
         wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
@@ -173,11 +245,11 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                      wand_links, brunnen_rect,
                      wand_rechts, wand_oben, wand_unten]
         action = player.interact(interactables)
-        #screen.blit(text_quiz_object_not_collected, (player.x - 150, player.y - 40))
         if action == "portal":
             if not shield_in_inventory or not kerze_in_inventory:
                 screen.blit(text_quiz_object_not_collected, (player.x - 250, player.y - 40))
             else:
+                GV.GOT_ALL_ITEMS = True
                 screen.blit(text, (player.x - 150, player.y - 40))
         elif action:
             screen.blit(text, (player.x - 150, player.y - 40))
