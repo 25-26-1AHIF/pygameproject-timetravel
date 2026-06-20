@@ -111,5 +111,6 @@
 - Wenn Player die Objekte hat, kann er ins Portal
 - Ein Welcome-Text in die Medieval Map eingebaut
 - Dafür GOT_ALL_ITEMS in GameVariables eingebaut damit es leichter ist
+- Ganze Castle Funktion gebaut
 
 ## Furkan Yildiz:

@@ -125,7 +125,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     interactables = [
         {"rect": grey_house_door, "action": "g_house"},
         {"rect": red_house_door, "action": "r_house"},
-        #{"rect": castle_door, "action": "castle"},
+        {"rect": castle_door, "action": "castle"},
         {"rect": portal_medieval_pos, "action": "portal"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
@@ -178,6 +178,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                         return GameScreens.G_HOUSE
                     if action == "r_house":
                         return GameScreens.R_HOUSE
+                    if action == "castle":
+                        return GameScreens.CASTLE
                     if action == "portal" and GV.GOT_ALL_ITEMS:
                         return GameScreens.PLAY
             if event.type == pygame.MOUSEBUTTONDOWN:
