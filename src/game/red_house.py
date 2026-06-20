@@ -1,5 +1,4 @@
 import pygame
-import json
 from pygame import SRCALPHA
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
@@ -145,16 +144,12 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
+
     kerze = True
-    path = "Game_Variables/inventory.json"
-    try:
-        with open(path, "r") as fp:
-            data = json.load(fp)
-    except json.JSONDecodeError:
-        data = {"inventory": []}
-        with open(path, "w") as fp:
-            json.dump(data, fp, indent=4)
-    kerze = "kerze" not in data["inventory"]
+    for x in GV.PLAYER_INVENTORY["inventory"]:
+        print(x)
+        if x == "candle":
+            kerze = False
 
     while True:
         for event in pygame.event.get():
@@ -172,11 +167,7 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
                     return None
                 if event.key == pygame.K_e:
                     if action == "kerze":
-                        if "kerze" not in Player.inventory["inventory"]:
-                            Player.inventory["inventory"].append("kerze")
-                            with open(path, "w") as fp:
-                                json.dump(data, fp, indent=4)
-                            Player.inventory["inventory"].append("kerze")
+                        GV.PLAYER_INVENTORY["inventory"].append("candle")
                         kerze = False
                     if action == "ausgang":
                         return GameScreens.MEDIEVAL
@@ -202,27 +193,13 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         ess_tisch_obj.draw(screen)
         stuhl_obj3.draw(screen)
         portrait_obj.draw(screen)
-        # KI-Anfang
-        # benutzte KI: Microsoft Copilot
-        # URL: https://copilot.microsoft.com
-        # Prompt: Das Problem: 1.
-        # Es printet solange das data da rein, bis ich raus bin aus dem Haus.
-        # Deswegen muss ich überprüfen, ob "kerze" schon drin ist. Das brauch ich auch für mein zweites Problem,
-        # und zwar dass wenn ich aus dem Haus rausgeh und wieder rein geh, die Kerze nicht wieder gezeichnet wird,
-        # benfalls mit dem Auslesen der Datei
-
-        # Code ist auf der Ganzen Seite verteilt, Datei auslesen mit Json usw...
-
-        # KI-Ende
-
         if kerze:
             kerze_obj.draw(screen)
-
         player.draw(screen)
         action = player.interact(interactables)
         if action == "ausgang":
             screen.blit(text, (player.x - 150, player.y))
-        elif action == "kerze":
+        elif action == "kerze" and kerze:
             screen.blit(text, (player.x - 150, player.y - 40))
         wand_unten_obj.draw(screen)
         player.move(obstacles=obstacles)

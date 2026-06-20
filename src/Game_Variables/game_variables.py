@@ -9,6 +9,10 @@ class GameVariables:
     PLAYER_WIDTH = 67
     PLAYER_HEIGHT = 122
 
+    PLAYER_INVENTORY = {
+        "inventory": []
+    }
+
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None
     FONT_SMALL: pygame.font.Font = None

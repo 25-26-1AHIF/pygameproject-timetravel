@@ -1,7 +1,4 @@
-from fileinput import close
-
 import pygame
-import json
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
 from src.Game_Variables.game_variables import GameObject
@@ -17,6 +14,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     kerze_bild_sw = pygame.image.load("assets/Bilder/Kerze_schwarz_weiß.png").convert_alpha()
     kerze_bild_bunt = pygame.image.load("assets/Bilder/Kerze_bunt.png").convert_alpha()
+    shield_image_sw = pygame.image.load("assets/Bilder/Schild_Schwarz_weiß.png")
+    shield_image_bunt = pygame.image.load("assets/Bilder/Schild_bunt.png")
+    shield_image_sw = pygame.transform.scale(shield_image_sw, (100,100))
+    shield_image_bunt = pygame.transform.scale(shield_image_bunt, (100,100))
     kerze_bild_sw = pygame.transform.scale(kerze_bild_sw, (100, 100))
     kerze_bild_bunt = pygame.transform.scale(kerze_bild_bunt, (100, 100))
     portal_bild = pygame.image.load("assets/Bilder/Portal_medieval.png").convert_alpha()
@@ -105,14 +106,19 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
-    text_candle = font.render("Collect candle first brudi", True, (255, 0, 0))
 
-    path_inventory = "Game_Variables/inventory.json"
-    try:
-        with open(path_inventory, "r") as fp:
-            data = json.load(fp)
-    except:
-        pass
+    kerze_in_inventory = False
+    shield_in_inventory = False
+    missing_inventory = []
+
+    for x in GV.PLAYER_INVENTORY["inventory"]:
+        print(x)
+        if x == "candle":
+            kerze_in_inventory = True
+        elif x == "shield":
+            shield_in_inventory = True
+
+    text_quiz_object_not_collected = font.render(f"Collect Quest-Objects first Brudi", True, (255, 0, 0))
 
     while True:
         for event in pygame.event.get():
@@ -150,10 +156,15 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         tree1_obj.draw(screen)
         screen.blit(portal_bild, portal_medieval_pos)
         player.draw(screen)
-        if "kerze" in data["inventory"]:
+        if kerze_in_inventory:
             screen.blit(kerze_bild_bunt, (0,0))
         else:
             screen.blit(kerze_bild_sw, (0,0))
+
+        if shield_in_inventory:
+            screen.blit(shield_image_bunt, (90, 0))
+        else:
+            screen.blit(shield_image_sw, (90, 0))
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
         wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
@@ -162,20 +173,15 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                      wand_links, brunnen_rect,
                      wand_rechts, wand_oben, wand_unten]
         action = player.interact(interactables)
-        if action:
-            if player.interact([{"rect": portal_medieval_pos, "action": "portal"}]):
-                if "kerze" not in Player.inventory["inventory"]:
-                    screen.blit(text_candle, (player.x - 150, player.y - 40))
-                else:
-                    screen.blit(text, (player.x - 150, player.y - 40))
+        #screen.blit(text_quiz_object_not_collected, (player.x - 150, player.y - 40))
+        if action == "portal":
+            if not shield_in_inventory or not kerze_in_inventory:
+                screen.blit(text_quiz_object_not_collected, (player.x - 250, player.y - 40))
             else:
                 screen.blit(text, (player.x - 150, player.y - 40))
+        elif action:
+            screen.blit(text, (player.x - 150, player.y - 40))
         player.move(obstacles=obstacles)
-        #pygame.draw.rect(screen, (255, 0, 0), player.get_rect(), 2)
-        #for it in interactables:
-        #    pygame.draw.rect(screen, (0, 255, 0), it["rect"], 2)  # E-Objekte (grün)
-        #for ob in obstacles:
-        #    pygame.draw.rect(screen, (0, 0, 255), ob, 2)
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()

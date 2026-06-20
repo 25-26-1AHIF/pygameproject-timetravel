@@ -167,6 +167,10 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     text = font.render("Press E to interact", True, (255, 255, 255))
     chest = False
     shield = True
+    for x in GV.PLAYER_INVENTORY["inventory"]:
+        print(x)
+        if x == "shield":
+            shield = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -188,6 +192,7 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
                         chest = not chest
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if shield_rect.collidepoint(event.pos):
+                    GV.PLAYER_INVENTORY["inventory"].append("shield")
                     shield = False
         if paused:
             pause_screen(screen, save_message_timer, pause_bild)

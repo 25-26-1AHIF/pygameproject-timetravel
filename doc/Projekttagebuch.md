@@ -95,4 +95,19 @@
 - Neues UI-Pack hinzugefügt altes entfernt
 - Projekttagebuch überarbeitet
 
+### 19.06.2026:
+- Im Grey_House eine Chest platziert
+- in diese ein Quest-Objekt (Schild) eingefügt
+- wenn man es anklickt, hat man es eingesammelt
+- inventory.json logik umgeändert in Player Objekt
+
+### 20.06.2026:
+- Player-Objekt für Inventar in GameVariables platziert
+- Schild_bunt.png und Schild_Schwarz_weiß erstellt
+- Kerze_schwarz_weiß Rahmen in grau umgeändert
+- main_screen, grey_house, medieval_screen und red_house angepasst
+- Portal_Text so umgeändert, dass falls der Player noch nicht alle eingesammelt hat, der Text:
+- "Collect Quest-Objects first Brudi" aufploppt
+- Wenn Player die Objekte hat, kann er ins Portal
+
 ## Furkan Yildiz:

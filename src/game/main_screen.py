@@ -20,11 +20,7 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     quit_rect = quit_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 510))
     Main_screen_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     Main_screen_bild = pygame.transform.scale(Main_screen_bild,(GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
-    path_inventory = "Game_Variables/inventory.json"
 
-    data = {"inventory": []}
-    with open(path_inventory, "w") as fp:
-        json.dump(data, fp, indent=4)
     while True:
         mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():

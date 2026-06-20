@@ -1,7 +1,6 @@
 import pygame
 from src.Game_Variables.game_variables import GameVariables as GV
 class Player:
-    inventory = {"inventory": []}
     def __init__(self, x=200, y=400):
         self.x = x
         self.y = y
