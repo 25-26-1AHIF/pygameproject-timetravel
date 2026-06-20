@@ -14,17 +14,21 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
     pygame.display.set_caption("Red House")
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     image_rect = pygame.Rect(0,0,32,32)
-    castle_indoor = pygame.image.load("assets/Sprites/Indoor/castle.png").convert_alpha()
     tilemap_castle_indoor = Tilemap("assets/Sprites/Indoor/castle.png", (8,19), image_rect)
     tilemap_castle_indoor = tilemap_castle_indoor.load_spritesheet()
+    crown_obj = pygame.image.load("assets/Bilder/Crown_Obj.png").convert_alpha()
+    crown_obj = pygame.transform.scale(crown_obj, (50,50))
     player = Player(GV.SCREEN_WIDTH // 2 - GV.PLAYER_WIDTH // 2, 600)
     save_message_timer = 0
     if load_save:
         load_game(player)
     paused = False
     ausgang_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 - 75, GV.SCREEN_HEIGHT - 75, 200, 100)
+    crown_rect = pygame.Rect(GV.SCREEN_WIDTH/2-115, 100, 50, 50)
+    crown_picked_up = False
     interactables = [
-        {"rect": ausgang_rect, "action": "ausgang"}
+        {"rect": ausgang_rect, "action": "ausgang"},
+        {"rect": crown_rect, "action":"crown"}
     ]
     font = pygame.font.SysFont("Georgia", 32)
     text = font.render("Press E to interact", True, (255, 255, 255))
@@ -42,8 +46,6 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
          (3,0), (3,1), (3,1), (3,1), (3,1), (3,1), (3,1), (3,1)],
         [(0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3),
          (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3), (0,3)],
-        [(0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3),
-         (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3)],
         [(0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3),
          (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3)],
         [(0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3), (0, 3),
@@ -110,7 +112,7 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
         [(5, 0), (5, 1), (5, 2)],
         [(6, 0), (6, 1), (6, 2)]
     ]
-    carpet_long_obj = GameObject(tilemap_castle_indoor, carpet_long_map, 490, 250, 500, 100, 32, 32)
+    carpet_long_obj = GameObject(tilemap_castle_indoor, carpet_long_map, 440, 250, 500, 200, 32, 32)
 
     fireplace_map = [
         [(7,5), (7,6), (7,7)],
@@ -124,6 +126,38 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
         [(14,7)]
     ]
     throne_obj = GameObject(tilemap_castle_indoor, throne_map, GV.SCREEN_WIDTH/2-25, 60, 100, 50, 32, 32)
+
+    sofa_map = [
+        [(13,5), (13,6)],
+        [(14,5), (14,6)]
+    ]
+    sofa_obj = GameObject(tilemap_castle_indoor, sofa_map, 50, 200, 100, 150, 32,32)
+    sofa_obj2 = GameObject(tilemap_castle_indoor, sofa_map, GV.SCREEN_WIDTH-200, 200, 100, 150, 32 ,32)
+
+    foot_sofa_map = [
+        [(15,5)]
+    ]
+    foot_sofa_obj = GameObject(tilemap_castle_indoor, foot_sofa_map, 0, 290, 50, 50, 32,32)
+    sofa_for_crown_obj = GameObject(tilemap_castle_indoor, foot_sofa_map, GV.SCREEN_WIDTH/2-130, 110, 80, 80,32, 32)
+
+    #tree_map = [
+    #    [(17, 7)],
+    #    [(18, 7)]
+    #]
+    #tree_obj = GameObject(tilemap_castle_indoor, tree_map, 0, 200, 100, 50, 32, 32)
+
+    standing_candle_map = [
+        [(14,2)],
+        [(15,2)],
+        [(16,2)]
+    ]
+    standing_candle_obj = GameObject(tilemap_castle_indoor, standing_candle_map, 0, 200, 100, 50, 32, 32)
+
+    crown_picked_up = False
+    for x in GV.PLAYER_INVENTORY["inventory"]:
+        print(x)
+        if x == "crown":
+            crown_picked_up = True
 
     while True:
         for event in pygame.event.get():
@@ -142,6 +176,9 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
                 if event.key == pygame.K_e:
                     if action == "ausgang":
                         return GameScreens.MEDIEVAL
+                    if action == "crown":
+                        crown_picked_up = True
+                        GV.PLAYER_INVENTORY["inventory"].append("crown")
         if paused:
             pause_screen(screen, save_message_timer, pause_bild)
             if save_message_timer > 0:
@@ -162,10 +199,19 @@ def castle(screen: pygame.Surface, clock: pygame.time.Clock, load_save = False):
         window_obj3.draw(screen)
         window_obj4.draw(screen)
         throne_obj.draw(screen)
+        sofa_obj.draw(screen)
+        sofa_obj2.draw(screen)
+        standing_candle_obj.draw(screen)
+        foot_sofa_obj.draw(screen)
+        sofa_for_crown_obj.draw(screen)
+        if not crown_picked_up:
+            screen.blit(crown_obj, (GV.SCREEN_WIDTH/2-115, 100))
         obstacles = []
         player.draw(screen)
         player.move(obstacles=obstacles)
         if action == "ausgang":
+            screen.blit(text, (player.x - 150, player.y))
+        elif action == "crown" and not crown_picked_up:
             screen.blit(text, (player.x - 150, player.y))
         pygame.display.flip()
         clock.tick(60)

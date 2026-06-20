@@ -13,7 +13,7 @@ class GameVariables:
         "inventory": []
     }
 
-    GOT_IT = False
+    GOT_IT_WELCOME = False
 
     GOT_ALL_ITEMS = False
 

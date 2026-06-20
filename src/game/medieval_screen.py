@@ -14,8 +14,12 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     kerze_bild_sw = pygame.image.load("assets/Bilder/Kerze_schwarz_weiß.png").convert_alpha()
     kerze_bild_bunt = pygame.image.load("assets/Bilder/Kerze_bunt.png").convert_alpha()
-    shield_image_sw = pygame.image.load("assets/Bilder/Schild_Schwarz_weiß.png")
-    shield_image_bunt = pygame.image.load("assets/Bilder/Schild_bunt.png")
+    shield_image_sw = pygame.image.load("assets/Bilder/Schild_Schwarz_weiß.png").convert_alpha()
+    shield_image_bunt = pygame.image.load("assets/Bilder/Schild_bunt.png").convert_alpha()
+    crown_image_sw = pygame.image.load("assets/Bilder/Krone_Schwarz_weiß.png").convert_alpha()
+    crown_image_bunt = pygame.image.load("assets/Bilder/Krone_bunt.png").convert_alpha()
+    crown_image_sw = pygame.transform.scale(crown_image_sw, (100,100))
+    crown_image_bunt = pygame.transform.scale(crown_image_bunt, (100, 100))
     shield_image_sw = pygame.transform.scale(shield_image_sw, (100,100))
     shield_image_bunt = pygame.transform.scale(shield_image_bunt, (100,100))
     kerze_bild_sw = pygame.transform.scale(kerze_bild_sw, (100, 100))
@@ -137,6 +141,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     kerze_in_inventory = False
     shield_in_inventory = False
+    crown_in_inventory = False
 
     for x in GV.PLAYER_INVENTORY["inventory"]:
         print(x)
@@ -144,6 +149,8 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             kerze_in_inventory = True
         elif x == "shield":
             shield_in_inventory = True
+        elif x == "crown":
+            crown_in_inventory = True
 
     text_quiz_object_not_collected = font.render(f"Collect Quest-Objects first Brudi", True, (255, 0, 0))
 
@@ -184,7 +191,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                         return GameScreens.PLAY
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if got_it_rect.collidepoint(event.pos):
-                    GV.GOT_IT = True
+                    GV.GOT_IT_WELCOME = True
 
             # KI-Anfang:
             # benutzte KI: Microsoft Copilot
@@ -221,8 +228,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         tree1_obj.draw(screen)
         screen.blit(portal_bild, portal_medieval_pos)
         player.draw(screen)
-        #text_hintergrund_obj.draw(screen)
-        if not GV.GOT_IT:
+        if not GV.GOT_IT_WELCOME:
             banner_welcome_obj.draw(screen)
             screen.blit(text_welcome, (GV.SCREEN_WIDTH/2 - 100, GV.SCREEN_HEIGHT/2-50))
             screen.blit(text_welcome2, ((GV.SCREEN_WIDTH/2 - 140, GV.SCREEN_HEIGHT/2-30)))
@@ -238,6 +244,11 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             screen.blit(shield_image_bunt, (90, 0))
         else:
             screen.blit(shield_image_sw, (90, 0))
+
+        if crown_in_inventory:
+            screen.blit(crown_image_bunt, (180,0))
+        else:
+            screen.blit(crown_image_sw, (180, 0))
 
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
