@@ -13,9 +13,16 @@ class GameVariables:
         "inventory": []
     }
 
-    GOT_IT_WELCOME = False
-
     GOT_ALL_ITEMS = False
+
+    CANDLE_IN_INVENTORY = False
+    SHIELD_IN_INVENTORY = False
+    CROWN_IN_INVENTORY = False
+
+    GOT_IT_WELCOME = False
+    FOUND_CROWN_BUTTON_PRESSED = False
+    FOUND_SHIELD_BUTTON_PRESSED = False
+    FOUND_CANDLE_BUTTON_PRESSED = False
 
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None

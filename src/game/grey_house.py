@@ -37,6 +37,33 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
     chest_open = pygame.transform.scale(chest_open, (500, 500))
     chest_open_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 250, GV.SCREEN_HEIGHT//2 - 250, 500, 500)
 
+    image_ui_rect = pygame.Rect(0, 0, 33, 33)
+    tilemap_ui = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Large tiles/Thin outline/tilemap.png", (13, 7),
+                         image_ui_rect)
+    tilemap_ui = tilemap_ui.load_spritesheet()
+
+    image_ui_small_rect = pygame.Rect(0, 0, 17, 17)
+    tilemap_ui_small = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Small tiles/Thin outline/tilemap.png", (23, 7),
+                               image_ui_small_rect)
+    tilemap_ui_small = tilemap_ui_small.load_spritesheet()
+
+    font = pygame.font.SysFont("Georgia", 32)
+    text = font.render("Press E to interact", True, (255, 255, 255))
+    font_mini = pygame.font.SysFont("Georgia", 16)
+    crown_found_text = font_mini.render("Congrats! You found the Greene's Shield!", True, "black")
+    yippie_rect = pygame.Rect(GV.SCREEN_WIDTH / 2 - 75, GV.SCREEN_HEIGHT / 2 + 20, 75, 150)
+    if not GV.CROWN_IN_INVENTORY and not GV.CANDLE_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Candle and the Crown", True, "black")
+    elif not GV.CROWN_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Crown", True, "black")
+    elif not GV.CANDLE_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Candle", True, "black")
+    else:
+        missing_items_text = font_mini.render("You found all the items, you can go through the portal now!", True,
+                                              "black")
+    text = font.render("Press E to interact", True, (255, 255, 255))
+    lets_go_text = font_mini.render("YIPPIE!", True, "black")
+
     wand_oben = [
         [(4, 26), (5, 23), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24), (6, 24),
          (6, 24), (6, 24), (5, 25), (4, 26)],
@@ -159,16 +186,25 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
 
     ausgang_rect = pygame.Rect(GV.SCREEN_WIDTH // 2 - 75, GV.SCREEN_HEIGHT - 75, 150, 75)
 
+    banner_crown_found_map = [
+        [(4,4),(4,5),(4,6)]
+    ]
+    banner_crown_found_obj = GameObject(tilemap_ui, banner_crown_found_map,  GV.SCREEN_WIDTH/2 - 200, GV.SCREEN_HEIGHT/2 - 100, 200, 400, 32, 32)
+
+    button_map = [
+        [(2, 3)]
+    ]
+    button_obj = GameObject(tilemap_ui_small, button_map, GV.SCREEN_WIDTH / 2 - 75, GV.SCREEN_HEIGHT / 2 + 20, 75, 150,16, 16)
+
+
     interactables = [
         {"rect": ausgang_rect, "action": "ausgang"},
         {"rect": chest_closed_rect, "action": "chest_open"}
     ]
-    font = pygame.font.SysFont("Georgia", 32)
-    text = font.render("Press E to interact", True, (255, 255, 255))
+
     chest = False
     shield = True
     for x in GV.PLAYER_INVENTORY["inventory"]:
-        print(x)
         if x == "shield":
             shield = False
     while True:
@@ -192,8 +228,11 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
                         chest = not chest
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if shield_rect.collidepoint(event.pos):
+                    GV.SHIELD_IN_INVENTORY = True
                     GV.PLAYER_INVENTORY["inventory"].append("shield")
                     shield = False
+                if yippie_rect.collidepoint(event.pos):
+                    GV.FOUND_SHIELD_BUTTON_PRESSED = True
         if paused:
             pause_screen(screen, save_message_timer, pause_bild)
             if save_message_timer > 0:
@@ -230,6 +269,13 @@ def grey_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False
             screen.blit(chest_open, chest_open_rect)
             if shield:
                 shield_obj.draw(screen)
+        if not GV.FOUND_SHIELD_BUTTON_PRESSED:
+            if GV.SHIELD_IN_INVENTORY:
+                banner_crown_found_obj.draw(screen)
+                screen.blit(crown_found_text, (GV.SCREEN_WIDTH/2 - 130, GV.SCREEN_HEIGHT/2-50))
+                screen.blit(missing_items_text, ((GV.SCREEN_WIDTH/2 - 160, GV.SCREEN_HEIGHT/2-20)))
+                button_obj.draw(screen)
+                screen.blit(lets_go_text, (GV.SCREEN_WIDTH/2-30, GV.SCREEN_HEIGHT/2+50))
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)

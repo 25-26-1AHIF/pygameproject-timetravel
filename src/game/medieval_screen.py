@@ -44,11 +44,6 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     tilemap_ui_small = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Small tiles/Thin outline/tilemap.png", (23,7), image_ui_small_rect)
     tilemap_ui_small = tilemap_ui_small.load_spritesheet()
 
-    text_hintergrund_map = [
-        [(1,5)]
-    ]
-    text_hintergrund_obj = GameObject(tilemap_ui, text_hintergrund_map, GV.SCREEN_WIDTH/2 - 250, GV.SCREEN_HEIGHT/2 - 300, 300, 500, 33, 32)
-
     banner_welcome_map = [
         [(4,4),(4,5),(4,6)]
     ]
@@ -139,19 +134,6 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
     text_welcome2 = font_mini.render("Top-Left to go back to the present!", True, "black")
     got_it_text = font_mini.render("Got it!", True, "black")
 
-    kerze_in_inventory = False
-    shield_in_inventory = False
-    crown_in_inventory = False
-
-    for x in GV.PLAYER_INVENTORY["inventory"]:
-        print(x)
-        if x == "candle":
-            kerze_in_inventory = True
-        elif x == "shield":
-            shield_in_inventory = True
-        elif x == "crown":
-            crown_in_inventory = True
-
     text_quiz_object_not_collected = font.render(f"Collect Quest-Objects first Brudi", True, (255, 0, 0))
 
     input_text = ""
@@ -235,17 +217,17 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             button_obj.draw(screen)
             screen.blit(got_it_text, (GV.SCREEN_WIDTH/2-30, GV.SCREEN_HEIGHT/2+15))
 
-        if kerze_in_inventory:
+        if GV.CANDLE_IN_INVENTORY:
             screen.blit(kerze_bild_bunt, (0,0))
         else:
             screen.blit(kerze_bild_sw, (0,0))
 
-        if shield_in_inventory:
+        if GV.SHIELD_IN_INVENTORY:
             screen.blit(shield_image_bunt, (90, 0))
         else:
             screen.blit(shield_image_sw, (90, 0))
 
-        if crown_in_inventory:
+        if GV.CROWN_IN_INVENTORY:
             screen.blit(crown_image_bunt, (180,0))
         else:
             screen.blit(crown_image_sw, (180, 0))
@@ -259,7 +241,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                      wand_rechts, wand_oben, wand_unten]
         action = player.interact(interactables)
         if action == "portal":
-            if not shield_in_inventory or not kerze_in_inventory:
+            if not GV.SHIELD_IN_INVENTORY or not GV.CANDLE_IN_INVENTORY or not GV.CROWN_IN_INVENTORY:
                 screen.blit(text_quiz_object_not_collected, (player.x - 250, player.y - 40))
             else:
                 GV.GOT_ALL_ITEMS = True

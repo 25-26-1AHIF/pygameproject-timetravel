@@ -30,6 +30,32 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
                       (27, 18), image_rect)
     tilemap = tilemap.load_spritesheet()
 
+    image_ui_rect = pygame.Rect(0, 0, 33, 33)
+    tilemap_ui = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Large tiles/Thin outline/tilemap.png", (13, 7),
+                         image_ui_rect)
+    tilemap_ui = tilemap_ui.load_spritesheet()
+
+    image_ui_small_rect = pygame.Rect(0, 0, 17, 17)
+    tilemap_ui_small = Tilemap("assets/Sprites/UI_Pack/Tilesheets/Small tiles/Thin outline/tilemap.png", (23, 7),
+                               image_ui_small_rect)
+    tilemap_ui_small = tilemap_ui_small.load_spritesheet()
+
+    font = pygame.font.SysFont("Georgia", 32)
+    font_mini = pygame.font.SysFont("Georgia", 16)
+    crown_found_text = font_mini.render("Congrats! You found the Pawn's Candle!", True, "black")
+    lets_go_rect = pygame.Rect(GV.SCREEN_WIDTH / 2 - 75, GV.SCREEN_HEIGHT / 2 + 20, 75, 150)
+    if not GV.SHIELD_IN_INVENTORY and not GV.CROWN_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Crown and the Shield", True, "black")
+    elif not GV.SHIELD_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Shield", True, "black")
+    elif not GV.CROWN_IN_INVENTORY:
+        missing_items_text = font_mini.render("You still have to find the Crown", True, "black")
+    else:
+        missing_items_text = font_mini.render("You found all the items, you can go through the portal now!", True,
+                                              "black")
+    text = font.render("Press E to interact", True, (255, 255, 255))
+    lets_go_text = font_mini.render("Alright!", True, "black")
+
     wand_oben = [
         [(3, 26), (2, 23), (3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(2, 25), (3,26)],
         [(3, 26), (2, 23), (3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(3, 24),(2, 25), (3,26)],
@@ -138,16 +164,24 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
 
     ausgang_rect = pygame.Rect(GV.SCREEN_WIDTH//2 - 75, GV.SCREEN_HEIGHT-75, 150, 75)
 
+    banner_crown_found_map = [
+        [(4,4),(4,5),(4,6)]
+    ]
+    banner_crown_found_obj = GameObject(tilemap_ui, banner_crown_found_map,  GV.SCREEN_WIDTH/2 - 200, GV.SCREEN_HEIGHT/2 - 100, 200, 400, 32, 32)
+
+    button_map = [
+        [(2, 3)]
+    ]
+    button_obj = GameObject(tilemap_ui_small, button_map, GV.SCREEN_WIDTH / 2 - 75, GV.SCREEN_HEIGHT / 2 + 20, 75, 150,16, 16)
+
+
     interactables = [
         {"rect": kerze_rect, "action": "kerze"},
         {"rect":ausgang_rect, "action": "ausgang"}
     ]
-    font = pygame.font.SysFont("Georgia", 32)
-    text = font.render("Press E to interact", True, (255, 255, 255))
 
     kerze = True
     for x in GV.PLAYER_INVENTORY["inventory"]:
-        print(x)
         if x == "candle":
             kerze = False
 
@@ -167,10 +201,14 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
                     return None
                 if event.key == pygame.K_e:
                     if action == "kerze":
+                        GV.CANDLE_IN_INVENTORY = True
                         GV.PLAYER_INVENTORY["inventory"].append("candle")
                         kerze = False
                     if action == "ausgang":
                         return GameScreens.MEDIEVAL
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if lets_go_rect.collidepoint(event.pos):
+                    GV.FOUND_CANDLE_BUTTON_PRESSED = True
         if paused:
             pause_screen(screen,save_message_timer,pause_bild)
             if save_message_timer > 0:
@@ -202,6 +240,13 @@ def red_house(screen: pygame.Surface, clock: pygame.time.Clock, load_save = Fals
         elif action == "kerze" and kerze:
             screen.blit(text, (player.x - 150, player.y - 40))
         wand_unten_obj.draw(screen)
+        if not GV.FOUND_CANDLE_BUTTON_PRESSED:
+            if GV.CANDLE_IN_INVENTORY:
+                banner_crown_found_obj.draw(screen)
+                screen.blit(crown_found_text, (GV.SCREEN_WIDTH/2 - 130, GV.SCREEN_HEIGHT/2-50))
+                screen.blit(missing_items_text, ((GV.SCREEN_WIDTH/2 - 160, GV.SCREEN_HEIGHT/2-20)))
+                button_obj.draw(screen)
+                screen.blit(lets_go_text, (GV.SCREEN_WIDTH/2-30, GV.SCREEN_HEIGHT/2+50))
         player.move(obstacles=obstacles)
         pygame.display.flip()
         clock.tick(60)
