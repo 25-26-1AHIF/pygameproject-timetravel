@@ -23,6 +23,7 @@ class GameVariables:
     FOUND_CROWN_BUTTON_PRESSED = False
     FOUND_SHIELD_BUTTON_PRESSED = False
     FOUND_CANDLE_BUTTON_PRESSED = False
+    INTRO_BUTTON = False
 
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None
