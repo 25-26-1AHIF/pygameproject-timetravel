@@ -1,7 +1,7 @@
 import pygame
-import json
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
+from src.game.leaderboard import Leaderboard
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Main")
@@ -13,11 +13,13 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     new_game_text = button_font.render("New Game",True,(255, 240, 210))
     load_text = button_font.render("Load Game",True,(255, 240, 210))
     quit_text = button_font.render("Quit",True,(255, 240, 210))
+    leaderboard_text = button_font.render("Leaderboard", True, (255,240,210))
     title_rect = title_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 120))
     subtitle_rect = subtitle_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 180))
     new_game_rect = new_game_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 380))
     load_rect = load_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 445))
     quit_rect = quit_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 510))
+    leaderboard_rect = leaderboard_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 575))
     Main_screen_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     Main_screen_bild = pygame.transform.scale(Main_screen_bild,(GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
 
@@ -34,6 +36,9 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
                     return GameScreens.PLAY
                 elif load_rect.collidepoint(event.pos):
                     return GameScreens.LADEN
+                elif leaderboard_rect.collidepoint(event.pos):
+                    lb = Leaderboard(screen, clock)
+                    lb.print_leaderboard()
                 elif quit_rect.collidepoint(event.pos):
                     return None
         screen.blit(Main_screen_bild, (0, 0))
@@ -47,7 +52,8 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
         buttons = [
             ("New Game", new_game_rect),
             ("Load Game", load_rect),
-            ("Quit", quit_rect)]
+            ("Quit", quit_rect),
+            ("Leaderboard", leaderboard_rect)]
         for text, rect in buttons:
             hover = rect.collidepoint(mouse_pos)
             color = (

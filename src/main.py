@@ -1,5 +1,5 @@
 import pygame
-from Game_Variables.game_variables import GameVariables as GV
+from src.Game_Variables.game_variables import GameVariables as GV
 from Game_Variables.game_variables import GameScreens
 from game.play_screen import play_screen
 from game.main_screen import main_screen
@@ -7,6 +7,7 @@ from game.medieval_screen import medieval_screen
 from game.grey_house import grey_house
 from game.red_house import red_house
 from game.castle import castle
+from game.leaderboard import Leaderboard
 
 def main():
     GV.init()
@@ -28,6 +29,12 @@ def main():
             GameScreens.actual = red_house(screen, clock)
         elif GameScreens.actual == GameScreens.CASTLE:
             GameScreens.actual = castle(screen, clock)
+        elif GameScreens.actual == GameScreens.LEADERBOARD:
+            lb = Leaderboard(screen, clock)
+            print(GV.END_TIME, GV.START_TIME)
+            print(GV.FINAL_TIME)
+            GameScreens.actual = lb.leaderboard(GV.FINAL_TIME)
+
     pygame.quit()
 
 if __name__ == "__main__":

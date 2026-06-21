@@ -25,6 +25,11 @@ class GameVariables:
     FOUND_CANDLE_BUTTON_PRESSED = False
     INTRO_BUTTON = False
 
+    STARTED_TIME = False
+    START_TIME = 0
+    END_TIME = 0
+    FINAL_TIME = 0
+
     FONT_BIG: pygame.font.Font = None
     FONT_MIDDLE: pygame.font.Font = None
     FONT_SMALL: pygame.font.Font = None
@@ -52,6 +57,7 @@ class GameScreens:
     G_HOUSE = "g_house"
     R_HOUSE = "r_house"
     CASTLE = "castle"
+    LEADERBOARD = "leaderboarddd"
     actual = MAIN
 
 class GameObject:

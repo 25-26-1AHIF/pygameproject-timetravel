@@ -1,3 +1,5 @@
+from calendar import leapdays
+
 import pygame
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
@@ -7,9 +9,13 @@ from src.Game_Variables.save_system import load_game
 from src.game.player import Player
 from src.game.pause_screen import pause_screen
 from src.game.sprites import Tilemap
+from src.game.leaderboard import Leaderboard
 
 def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=False):
     GV.init()
+    if not GV.STARTED_TIME:
+        GV.START_TIME = pygame.time.get_ticks()
+        GV.STARTED_TIME = True
     pygame.display.set_caption("Medieval_Screen")
     pause_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     kerze_bild_sw = pygame.image.load("assets/Bilder/Kerze_schwarz_weiß.png").convert_alpha()
@@ -136,16 +142,6 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
 
     text_quiz_object_not_collected = font.render(f"Collect Quest-Objects first Brudi", True, (255, 0, 0))
 
-    input_text = ""
-    input_active = False
-    font = pygame.font.Font(None, 40)
-    frame_x = 400
-    frame_y = 250
-    frame_w = 400
-    frame_h = 50
-
-    text_surface = font.render(input_text, True, (255, 255, 255))
-
     got_it_rect = pygame.Rect((GV.SCREEN_WIDTH/2 - 70, GV.SCREEN_HEIGHT/2 - 10, 75, 130))
 
     while True:
@@ -170,29 +166,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                     if action == "castle":
                         return GameScreens.CASTLE
                     if action == "portal" and GV.GOT_ALL_ITEMS:
-                        return GameScreens.PLAY
+                        return GameScreens.LEADERBOARD
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if got_it_rect.collidepoint(event.pos):
                     GV.GOT_IT_WELCOME = True
-
-            # KI-Anfang:
-            # benutzte KI: Microsoft Copilot
-            # URL: https://copilot.microsoft.com
-            # Prompt: Wie kann ich nochmal eine Player Eingabe auf dem Screen machen?
-            if event.type == pygame.KEYDOWN and input_active:
-                if event.key == pygame.K_RETURN:
-                    print("Spieler hat eingegeben:", input_text)
-                    input_text = ""  # oder Eingabe beenden
-                elif event.key == pygame.K_BACKSPACE:
-                    input_text = input_text[:-1]
-                else:
-                    input_text += event.unicode
-                # Textbreite prüfen
-                text_surface = font.render(input_text, True, (255, 255, 255))
-                while text_surface.get_width() > frame_w - 20:  # 20 = Padding
-                    input_text = input_text[1:]  # vorne Zeichen entfernen
-                    text_surface = font.render(input_text, True, (255, 255, 255))
-            # KI-Ende
         if paused:
             pause_screen(screen,save_message_timer,pause_bild)
             if save_message_timer > 0:
@@ -201,8 +178,6 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             continue
         screen.fill("black")
         screen.blit(scaled_map, (0, 0))
-        #pygame.draw.rect(screen, (255, 255, 255), (frame_x, frame_y, frame_w, frame_h), 2)
-        #screen.blit(text_surface, (frame_x + 10, frame_y + 10))
         house_object.draw(screen)
         grey_house_object.draw(screen)
         castle_object.draw(screen)
@@ -232,6 +207,21 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         else:
             screen.blit(crown_image_sw, (180, 0))
 
+        if GV.GOT_ALL_ITEMS and GV.STARTED_TIME:
+            # KI-Anfang:
+            # Benutzte KI: Microsoft Copilot
+            # URL: https://copilot.microsoft.com
+            # Prompt: Ich will, damit mein Spiel kompetitiver wird,
+            # die Zeit messen, die der Player braucht um alle drei Objekte zu finden.
+            # Wie kann ich das machen, weil ich habe ja 60 FPS und wie mach ich das jetzt? Am Ende des Spiels will ich noch so,
+            # dass der Player seinen Namen eingibt und es dann ein Leaderboard gibt mit Name und Zeit.
+            end_time = pygame.time.get_ticks()
+            GV.END_TIME = end_time
+            print(GV.END_TIME, GV.START_TIME)
+            GV.FINAL_TIME = (GV.END_TIME - GV.START_TIME) / 1000
+            print(GV.FINAL_TIME)
+
+            #KI-Ende
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
         wand_oben = pygame.Rect((0,0,GV.SCREEN_WIDTH,5))
