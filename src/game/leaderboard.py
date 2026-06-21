@@ -13,7 +13,7 @@ from src.Game_Variables.game_variables import GameVariables as GV, GameScreens
 class Leaderboard():
 
     def __init__(self, screen: pygame.Surface, clock: pygame.time.Clock):
-        self.LEADERBOARD_FILE = "leaderboard.json"
+        self.LEADERBOARD_FILE = "Game_Variables/leaderboard.json"
         self.screen = screen
         self.clock = clock
         self.background = pygame.image.load("assets/Bilder/Hintergrundbild für Leaderboard.png").convert_alpha()
@@ -129,7 +129,7 @@ class Leaderboard():
                 y = 160
                 for entry in scores[:10]:
                     line = f"{entry['name']} - {entry['time']:.2f} Sekunden"
-                    surf = font.render(line, True, (255, 255, 255))
+                    surf = font.render(line, True, ("black"))
                     self.screen.blit(surf, (frame_x - 50, y))
                     y += 40
 

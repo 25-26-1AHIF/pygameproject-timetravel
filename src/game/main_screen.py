@@ -5,6 +5,27 @@ from src.game.leaderboard import Leaderboard
 
 def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     pygame.display.set_caption("TimeTravel - Main")
+    GV.START_TIME = 0
+    GV.END_TIME = 0
+    GV.FINAL_TIME = 0
+    GV.STARTED_TIME = False
+
+    GV.PLAYER_INVENTORY = {
+        "inventory": []
+    }
+
+    GV.GOT_ALL_ITEMS = False
+
+    GV.CANDLE_IN_INVENTORY = False
+    GV.SHIELD_IN_INVENTORY = False
+    GV.CROWN_IN_INVENTORY = False
+
+    GV.GOT_IT_WELCOME = False
+    GV.FOUND_CROWN_BUTTON_PRESSED = False
+    GV.FOUND_SHIELD_BUTTON_PRESSED = False
+    GV.FOUND_CANDLE_BUTTON_PRESSED = False
+    GV.INTRO_BUTTON = False
+
     title_font = pygame.font.SysFont("Georgia",82,bold=True)
     subtitle_font = pygame.font.SysFont("Georgia",28)
     button_font = pygame.font.SysFont("Georgia",38)
@@ -18,8 +39,8 @@ def main_screen(screen: pygame.Surface, clock: pygame.time.Clock):
     subtitle_rect = subtitle_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 180))
     new_game_rect = new_game_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 380))
     load_rect = load_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 445))
-    quit_rect = quit_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 510))
-    leaderboard_rect = leaderboard_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 575))
+    quit_rect = quit_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 575))
+    leaderboard_rect = leaderboard_text.get_rect(center=(GV.SCREEN_WIDTH / 2, 510))
     Main_screen_bild = pygame.image.load("assets/Sprites/Main_Screen-Bild.png").convert()
     Main_screen_bild = pygame.transform.scale(Main_screen_bild,(GV.SCREEN_WIDTH, GV.SCREEN_HEIGHT))
 

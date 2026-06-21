@@ -31,8 +31,6 @@ def main():
             GameScreens.actual = castle(screen, clock)
         elif GameScreens.actual == GameScreens.LEADERBOARD:
             lb = Leaderboard(screen, clock)
-            print(GV.END_TIME, GV.START_TIME)
-            print(GV.FINAL_TIME)
             GameScreens.actual = lb.leaderboard(GV.FINAL_TIME)
 
     pygame.quit()

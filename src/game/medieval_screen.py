@@ -217,9 +217,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             # dass der Player seinen Namen eingibt und es dann ein Leaderboard gibt mit Name und Zeit.
             end_time = pygame.time.get_ticks()
             GV.END_TIME = end_time
-            print(GV.END_TIME, GV.START_TIME)
             GV.FINAL_TIME = (GV.END_TIME - GV.START_TIME) / 1000
-            print(GV.FINAL_TIME)
 
             #KI-Ende
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
