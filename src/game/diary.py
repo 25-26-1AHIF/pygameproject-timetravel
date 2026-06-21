@@ -27,6 +27,6 @@ class diary:
         sprite_big = pygame.transform.scale(self.diary_bild, (self.width, self.height))
         self.screen.blit(sprite_big, dest=(self.xpos_tagebuch, self.ypos_tagebuch))
         # KI-Ende
-        titel_text_tagebuch = self.font_mini.render("Irgendwann im Mittelalter", True, "black")
+        titel_text_tagebuch = self.font_mini.render("Sometime in medieval europe", True, "black")
         self.screen.blit(source=titel_text_tagebuch, dest=(self.xpos_tagebuch + 35,self.ypos_tagebuch + 60))
         self.screen.blit(source=self.icon_klein, dest=(self.xpos_tagebuch+50, self.ypos_tagebuch+100))

@@ -1,5 +1,4 @@
 import pygame
-from pygame import SRCALPHA
 from src.Game_Variables.game_variables import GameVariables as GV
 from src.Game_Variables.game_variables import GameScreens
 from src.Game_Variables.game_variables import GameObject
