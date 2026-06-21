@@ -116,4 +116,10 @@
 - castle ausgeschmückt
 - 3 Bilder erstellt
 
+### 21.06.2026:
+- Final fertig gebaut
+- Bugs gefixed wie zum Beispiel  Zeit zurücksetzen beim neuen Spiel
+- Leaderboard gebaut
+- Zeitmessung
+
 ## Furkan Yildiz:
