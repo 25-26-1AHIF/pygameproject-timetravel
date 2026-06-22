@@ -152,7 +152,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
                 if paused and event.key == pygame.K_s:
-                    save_game(player)
+                    save_game(player, GameScreens.MEDIEVAL)
                     save_message_timer = 120
                 if paused and event.key == pygame.K_m:
                     return GameScreens.MAIN
