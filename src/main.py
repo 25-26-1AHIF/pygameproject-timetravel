@@ -8,6 +8,17 @@ from game.grey_house import grey_house
 from game.red_house import red_house
 from game.castle import castle
 from game.leaderboard import Leaderboard
+import json
+import os
+from Game_Variables.save_system import SAVE_FILE
+
+
+def get_saved_scene():
+    if not os.path.exists(SAVE_FILE):
+        return GameScreens.PLAY
+    with open(SAVE_FILE, "r") as file:
+        data = json.load(file)
+    return data.get("scene", GameScreens.PLAY)
 
 def main():
     GV.init()
@@ -15,12 +26,22 @@ def main():
     clock = pygame.time.Clock()
     GameScreens.actual = GameScreens.MAIN
     while GameScreens.actual is not None:
-        if GameScreens.actual == GameScreens.MAIN:
+        if GameScreens.actual == GameScreens.MAIN:  # <- if zuerst!
             GameScreens.actual = main_screen(screen, clock)
         elif GameScreens.actual == GameScreens.PLAY:
             GameScreens.actual = play_screen(screen, clock, load_save=False)
-        elif GameScreens.actual == GameScreens.LADEN:
-            GameScreens.actual = play_screen(screen, clock, load_save=True)
+        elif GameScreens.actual == GameScreens.LADEN:  # <- LADEN als elif, HIER unten
+            scene = get_saved_scene()
+            if scene == GameScreens.MEDIEVAL:  # <- der innere Türsteher,
+                GameScreens.actual = medieval_screen(screen, clock, load_save=True)
+            elif scene == GameScreens.G_HOUSE:
+                GameScreens.actual = grey_house(screen, clock, load_save=True)
+            elif scene == GameScreens.R_HOUSE:
+                GameScreens.actual = red_house(screen, clock, load_save=True)
+            elif scene == GameScreens.CASTLE:
+                GameScreens.actual = castle(screen, clock, load_save=True)
+            else:
+                GameScreens.actual = play_screen(screen, clock, load_save=True)
         elif GameScreens.actual == GameScreens.MEDIEVAL:
             GameScreens.actual = medieval_screen(screen, clock)
         elif GameScreens.actual == GameScreens.G_HOUSE:

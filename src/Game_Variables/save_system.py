@@ -4,12 +4,13 @@ import os
 SAVE_FILE = "savegame.json"
 
 
-def save_game(player):
+def save_game(player, scene):
 
     data = {
         "player_x": player.x,
         "player_y": player.y,
-        "direction": player.direction
+        "direction": player.direction,
+        "scene": scene
     }
 
     with open(SAVE_FILE, "w") as file:
@@ -30,3 +31,5 @@ def load_game(player):
 
     player_rect = player.get_rect()
     player_rect.topleft = (player.x, player.y)
+
+    return data.get("scene")
