@@ -28,6 +28,8 @@ class GameVariables:
     STARTED_TIME = False
     START_TIME = 0
     END_TIME = 0
+    PAUSED_TIME = 0
+    PAUSE_START = 0
     FINAL_TIME = 0
 
     FONT_BIG: pygame.font.Font = None

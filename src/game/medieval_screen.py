@@ -151,6 +151,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
+                    if paused:
+                        GV.PAUSE_START = pygame.time.get_ticks()
+                    else:
+                        GV.PAUSED_TIME += pygame.time.get_ticks() - GV.PAUSE_START
                 if paused and event.key == pygame.K_s:
                     save_game(player, GameScreens.MEDIEVAL)
                     save_message_timer = 120
@@ -217,8 +221,7 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
             # dass der Player seinen Namen eingibt und es dann ein Leaderboard gibt mit Name und Zeit.
             end_time = pygame.time.get_ticks()
             GV.END_TIME = end_time
-            GV.FINAL_TIME = (GV.END_TIME - GV.START_TIME) / 1000
-
+            GV.FINAL_TIME = (GV.END_TIME - GV.START_TIME - GV.PAUSED_TIME) / 1000
             #KI-Ende
         wand_links = pygame.Rect((0,0,5,GV.SCREEN_HEIGHT))
         wand_rechts = pygame.Rect((GV.SCREEN_WIDTH -5,0,5,GV.SCREEN_HEIGHT))
@@ -237,6 +240,10 @@ def medieval_screen(screen: pygame.Surface, clock: pygame.time.Clock, load_save=
         elif action:
             screen.blit(text, (player.x - 150, player.y - 40))
         player.move(obstacles=obstacles)
+        if GV.STARTED_TIME:
+            elapsed = (pygame.time.get_ticks() - GV.START_TIME - GV.PAUSED_TIME) / 1000
+            timer_text = font.render(f"Zeit: {elapsed:.1f}s", True, "white")
+            screen.blit(timer_text, (GV.SCREEN_WIDTH / 2 - 50, 20))
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
