@@ -26,13 +26,13 @@ def main():
     clock = pygame.time.Clock()
     GameScreens.actual = GameScreens.MAIN
     while GameScreens.actual is not None:
-        if GameScreens.actual == GameScreens.MAIN:  # <- if zuerst!
+        if GameScreens.actual == GameScreens.MAIN:
             GameScreens.actual = main_screen(screen, clock)
         elif GameScreens.actual == GameScreens.PLAY:
             GameScreens.actual = play_screen(screen, clock, load_save=False)
-        elif GameScreens.actual == GameScreens.LADEN:  # <- LADEN als elif, HIER unten
+        elif GameScreens.actual == GameScreens.LADEN:
             scene = get_saved_scene()
-            if scene == GameScreens.MEDIEVAL:  # <- der innere Türsteher,
+            if scene == GameScreens.MEDIEVAL:
                 GameScreens.actual = medieval_screen(screen, clock, load_save=True)
             elif scene == GameScreens.G_HOUSE:
                 GameScreens.actual = grey_house(screen, clock, load_save=True)
