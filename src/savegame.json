@@ -1,1 +1,1 @@
-{"player_x": 330, "player_y": 490, "direction": "right", "scene": "medieval", "started_time": true, "elapsed": 22416, "candle": true, "shield": true, "crown": true, "got_all": false, "inventory": ["candle", "shield", "crown"], "found_candle": true, "found_shield": true, "found_crown": false}
+{"player_x": 507, "player_y": 210, "direction": "down", "scene": "r_house", "started_time": true, "elapsed": 54351, "candle": true, "shield": false, "crown": false, "got_all": false, "inventory": ["candle"], "found_candle": true, "found_shield": false, "found_crown": false}

@@ -5,9 +5,9 @@ from src.Game_Variables.game_variables import GameVariables as GV, GameScreens
 # KI-Anfang:
 # benutzte KI: Microsoft Copilot
 # URL: https://copilot.microsoft.com
-# Prompt: Wie kann ich nochmal eine Player Eingabe auf dem Screen machen?
+# Prompt: Wie kann ich nochmaleine Player Eingabe auf dem Screen machen?
 # Bemerkung: Ein großteil des Codes ist von Copilot generiert hier im leaderboard, jedoch habe ich es selber debuggt
-# Zum Beispiel gab es einen Zähl-Error den ich ohne KI gefixed habe und auch in eine Klasse habe ich es umgewandelt,
+# zum Beispiel gab es einen Zähl-Error den ich ohne KI gefixt habe und auch in eine Klasse habe ich es umgewandelt,
 # nicht die KI.
 
 class Leaderboard():
@@ -54,6 +54,20 @@ class Leaderboard():
 
             self.screen.fill("black")
             self.screen.blit(self.background, (0,0))
+            # KI-Anfang
+            # benutzte KI: Microsoft Copilot
+            # URL: https://copilot.microsoft.com
+            # Prompt: Wie kann ich ein Milchglas-transparentes hintergrund rect erstellen?
+            # Milchglas-Overlay erstellen
+            overlay = pygame.Surface((550, 550), pygame.SRCALPHA)
+
+            # Farbe mit Transparenz (R, G, B, A)
+            # A = 0 (unsichtbar) bis 255 (voll sichtbar)
+            overlay.fill((255, 255, 255, 120))  # 120 = milchig
+
+            # Auf den Screen blitten
+            self.screen.blit(overlay, (300, 100))
+            # KI-Ende
 
             scores = self.load_scores()
 
@@ -140,6 +154,6 @@ class Leaderboard():
             self.clock.tick(60)
         pygame.quit()
 # KI-Ende
-# Bemerkung: Weil der Code fragmente von KI-Code und fragmenten meines Codes beeinhaltet,
+# Bemerkung: Weil der Code fragmente von KI-Code und fragmenten meines Codes beinhaltet,
 # habe ich das KI-Ende hier unten hingeschrieben, damit es nicht zu kompliziert wird
 # NICHT REIN KI GENERIERTER CODE!!
